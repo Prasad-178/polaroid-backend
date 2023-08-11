@@ -1,0 +1,320 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #14181c;
+}
+
+.main {
+  width: 60%;
+  min-height: 100vh;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 35px;
+}
+
+.profile-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-name {
+  color: whitesmoke;
+  font-size: 24px;
+  opacity: 0.9;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.profile-metadata {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 15px;
+}
+
+.profile-metadata form button {
+  min-width: 120px;
+}
+
+.profile-social-metadata {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  /* padding-right: 8%; */
+  /* border-right: 1px solid #24303c; */
+}
+
+.social-component-name {
+  color: #678;
+  display: block;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.social-component-name:hover {
+  color: #40bcf4;
+  transition: 0.2s;
+}
+
+.social-component-counter {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 2px;
+  color: whitesmoke;
+  letter-spacing: 1.5px;
+}
+
+.select-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px 50px;
+  border-radius: 8px;
+  border: 1px solid #24303c;
+  margin: 50px 0;
+}
+
+.section-name {
+  font-size: 16px;
+  text-decoration: none;
+  color: #9ab;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  transition: 0.2s;
+}
+
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.active {
+  color: whitesmoke;
+}
+
+.section-name:hover {
+  color: #40bcf4;
+  transition: 0.2s;
+}
+
+
+.section-heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #456;
+  color: #9ab;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.075rem;
+  margin-top: 80px;
+  margin-bottom: 12px;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 11px;
+  margin-bottom: 35px;
+  cursor: pointer;
+}
+
+.grid-img {
+  cursor: pointer;
+  width: auto;
+  height: 225px;
+  object-fit: cover;
+  border-radius: 8px;
+  outline: 1.8px solid grey;
+}
+
+.grid-container .grid-img:hover {
+  outline: 2.25px solid white;
+  transition: 0.125s;
+}
+
+.section-heading > a {
+  text-decoration: none;
+  color: #9ab;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.075rem;
+  transition: 0.2s;
+}
+
+.section-heading > a:hover {
+  color: #40bcf4;
+  transition: 0.2s;
+}
+
+.element-container {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #2c3440;
+  padding: 25px 0px;
+  margin-bottom: 8px;
+  min-width: 500px;
+  width: 100%;
+}
+
+.film-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.film-image {
+  border-radius: 8px;
+  height: 115px;
+  width: auto;
+  outline: 1.8px solid grey;
+}
+
+.film-image:hover {
+  outline: 2.25px solid white;
+  transition: 0.125s;
+}
+
+.film-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.film-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.film-name {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
+  margin-right: 8px;
+  justify-content: flex-end;
+}
+
+.film-review {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  color: #9ab;
+  align-items: center;
+  font-size: 15px;
+  letter-spacing: 1px;
+}
+
+.film-director {
+  background: #283038;
+  border-radius: 3px;
+  color: #9ab;
+  display: inline-block;
+  padding: 3px 6px;
+  white-space: nowrap;
+  margin-left: 6px;
+}
+
+.film-year {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #89a;
+  font-size: 18px;
+}
+
+.film-name:hover {
+  color: #40bcf4;
+}
+
+
+.followButton {
+    /* width: 50%; */
+    background-color: rgb(68, 82, 95);
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.9;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    max-width: 70px;
+}
+
+.followButton:hover {
+    background-color: rgb(80, 94, 106);
+}
+
+.dp {
+    border-radius: 100%;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.favFilmsHead {
+    font-size: 14px;
+    opacity: 0.8;
+    letter-spacing: 1.5px;
+    color: white;
+    margin: 10px;
+    margin-left: 0px;
+    margin-top: 50px;
+}
+
+.favFilms {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 80%;
+    max-width: 850px;
+    min-width: 350px;
+    border-top: 1px solid white;
+    margin-top: -5px;
+    padding-top: 5px;
+}
+
+.favFilms img  {
+    max-height: 200px;
+    cursor: pointer;
+}
+
+.notFirst {
+    margin-top: 50px;
+}
+
+.favFilms img:hover {
+    outline: 2px solid white;
+}

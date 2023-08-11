@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto&display=swap");
+
+body {
+    background-color: #14181c;
+}
+
+.main {
+    background-image: url(userformbg.avif);
+    background-repeat: round;
+  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
+}
+
+form {
+  text-align: center;
+  display: flex;
+  color: white;
+  flex-direction: column;
+  background-color: rgba(245, 245, 245, 0.174);
+
+  padding: 5px 5px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.272);
+  /* height: 40%; */
+  width: 40%;
+  margin-left: 30%;
+  margin-top: 10%;
+
+  justify-content: center;
+}
+
+.space {
+  margin: 10px 5px;
+}
+
+#submit-button {
+  text-decoration: none;
+  padding: 10px 40px;
+  background-color: rgba(192, 192, 192, 0.236);
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.655),
+    rgba(227, 236, 237, 0.217)
+  );
+  border-radius: 5px;
+  font-weight: 800;
+  color: white;
+}

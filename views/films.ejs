@@ -1,0 +1,28 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<link rel="stylesheet" href="/css/films.css">
+<title>Polaroid | Films</title>
+<div class="main">
+    <div class="header">
+        <div>films</div>
+        <label class="switch">
+            <input type="checkbox" class="grid-num-control" autocomplete="off" onclick="changeGridLayout()"
+                id="grid-checkbox">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <div class="header-bar"> Explore to your heart's content </div>
+    <div class="grid-container" id="grid-container">
+        <% for (let i=0; i<upcoming.results.length; i++) { %>
+            <div class="grid-img-container"> <a href=<%= "/film/"+upcoming.results[i].id %>> <img class="grid-img" src=<%= "https://image.tmdb.org/t/p/original" + upcoming.results[i].poster_path %> alt="image"> </a> </div>
+        <% } %>
+        <% for (let i=0; i<trendingMovies.results.length; i++) { %>
+            <div class="grid-img-container"> <a href= <%= "/film/"+ trendingMovies.results[i].id %>> <img class="grid-img" src=<%= "https://image.tmdb.org/t/p/original" + trendingMovies.results[i].poster_path %> alt="image"> </a> </div>
+        <% } %>
+        <% for (let i=0; i<nowPlaying.results.length; i++) { %>
+            <div class="grid-img-container"> <a href= <%= "/film/"+ nowPlaying.results[i].id %>> <img class="grid-img" src=<%= "https://image.tmdb.org/t/p/original" + nowPlaying.results[i].poster_path %> alt="image"> </a> </div>
+        <% } %>
+    </div>
+</div>
+<script src="/scripts/films.js" charset="utf-8"></script>
+<%- include('./partials/footer.ejs') %>

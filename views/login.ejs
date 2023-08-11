@@ -1,0 +1,44 @@
+<%- include('./partials/boilerplate.ejs') %>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/login.css">
+<title>Login</title>
+<div class="div-container">
+  <img src="/assets/Logo.png" onclick="location.href='/'" class="logo">
+  <div class="text-div">
+        <form action="/user/login" method="post" onchange="return emailValidation()">
+          <div class="head-div">Log in</div>
+          <!-- <button type="button" class="btn btn-outline-light button-google" style="width: 100%">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+              <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+            </svg>
+            <div class="button-google-text">Continue with Google</div>
+          </button> -->
+          <!-- <div class="line-text"><span>or</span></div> -->
+          <div class="email-div">
+            <label for="email-input" class="email-label" style="opacity: 70%">Email address</label>
+            <input type="text" name="email" class="email-box" placeholder="input@example.com" id="email-input" required autocomplete="off"
+              oninvalid="this.setCustomValidity('Email Address can not be empty')"
+              oninput="this.setCustomValidity('')">
+          </div>
+          <div class="pass-div">
+            <label for="password-input" class="password-label" style="opacity: 70%">Password</label>
+            <input type="password" name="password" class="password-box" placeholder="Password" id="password-input" required autocomplete="off"
+              oninvalid="this.setCustomValidity('Password can not be empty')"
+              oninput="this.setCustomValidity('')">
+          </div>
+          <button type="submit" class="btn btn-outline-info" style="width: 100%" id="submit-button">
+            Log in
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
+          </button>
+        </form>
+        <div class="login-div">New to Polaroid ? <a href="/user/register">Join now</a></div>
+        <div class="error-div" id="alert-zone"> <%= error %> </div>
+        <div class="login-div"> <a href="/user/forgotpassword">Forgot Password?</a> </div>
+      </div>
+      <div class="img-div"></div>
+    </div>
+  </body>
+  <script src="/scripts/login.js"></script>
+</html>

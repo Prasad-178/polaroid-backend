@@ -1,0 +1,150 @@
+body {
+  /* min-height: 100vh; */
+  background-color: #14181c;
+  font-family: sans-serif;
+}
+
+.main {
+  min-width: 45%;
+  min-height: 100vh;
+}
+
+.follower-watched-count, .follower-list-count, .follower-favorite-count {
+  color:  #789;
+  font-size: 14px;
+  margin-left: 5px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.follower-watched-count:hover, .follower-list-count:hover, .follower-favorite-count:hover {
+  color: whitesmoke;
+  transition: 0.4s;
+}
+
+.follower-watched, .follower-list, .follower-favorite {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.follower-social-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 50%;
+}
+
+.follower-slice {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0px;
+  border-bottom: 1px solid #345;
+}
+
+.header-line {
+  border-bottom: 1px solid #345;
+}
+
+.follower-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.follower-metadata {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+}
+
+.follower-name {
+  font-weight: 500;
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 20px;
+  transition: 0.4s;
+}
+
+.follower-name:hover {
+  transition: 0.4s;
+  color: #40bcf4;
+}
+
+.follower-network {
+  color: #456;
+  font-size: 14px;
+}
+
+.follower-network > a {
+  text-decoration: none;
+  color: #789;
+  transition: 0.4s;
+}
+
+.follower-network > a:hover {
+  color: #bcd;
+  transition: 0.4s;
+}
+
+.follower-dp {
+  border-radius: 100%;
+  outline: 1.5px solid grey;
+  transition: 0.4s;
+}
+
+.follower-dp-link {
+  text-decoration: none;
+}
+
+.follower-dp:hover {
+  outline: 1.5px solid whitesmoke;
+  transition: 0.4s;
+}
+
+.select-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px 50px;
+  border-radius: 8px;
+  border: 1px solid #24303c;
+  margin: 50px 0;
+}
+
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.section-name {
+  font-size: 16px;
+  text-decoration: none;
+  color: #00e054;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  transition: 0.2s;
+}
+
+.active {
+  color: whitesmoke;
+}
+
+.active:hover {
+  color : #ff9010 !important;
+}
+
+.section-name:hover {
+  color: #40bcf4;
+  transition: 0.2s;
+}

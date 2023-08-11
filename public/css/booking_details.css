@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #14181c;
+}
+
+.main {
+    display: flex;
+    max-width: 100%;
+    padding: 5% 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contact-essentials {
+    margin-bottom: 35px;
+  }
+
+  .email-label {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 70%;
+  }
+
+  .email-div {
+    margin-bottom: 5%
+  }
+
+  .email-box {
+    display: block;
+    width: 450px;
+    padding: 2% 2%;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 8px;
+    background-color: #a3d4ec;
+    border: none;
+    margin-top: 12px;
+  }
+
+  .address-box {
+    display: block;
+    width: 450px;
+    height: 100px;
+    padding: 2% 2%;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 8px;
+    background-color: #a3d4ec;
+    border: none;
+    margin-top: 12px;
+  }
+
+  .gender-drop-box {
+    /* display: block; */
+    margin: 12px 0px 15px 15px;
+    width: 200px;
+    padding: 2% 2%;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 8px;
+    background-color: #a3d4ec;
+    border: none;
+  }
+
+  .gender-div {
+    margin-bottom: 35px;
+  }
+
+  .accept-terms {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  .accept-terms-checkbox {
+    transform: scale(1.5);
+    margin-right: 15px;
+  }
+
+  .control-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  .error-div {
+    height: 15px;
+    line-height: 15px;
+    color: red;
+    margin-bottom: 5px;
+  }
+
+  .personal-info:focus {
+    outline: none;
+    background-color: white;
+  }
+
+  .personal-info {
+    outline: none;
+    background-color: #a3d4ec;
+  }
+
+  .movie-selector {
+    display: block;
+    margin: 12px 0px 15px 0px;
+    width: auto;
+    padding: 4% 4%;
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 5px;
+    background-color: #a3d4ec;
+    border: none;
+  }
+
+  .movie-selector-label {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 70%;
+  }
+
+  .selector-container{
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: flex-start; */
+    /* margin-right: 5.5%; */
+
+    margin-bottom: 15%;
+  }

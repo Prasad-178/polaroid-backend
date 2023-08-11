@@ -1,0 +1,100 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #14181c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+  min-width: 48%;
+  min-height: 100vh;
+}
+
+.meta-data {
+  width: 100%;
+}
+
+.grid-container {
+  display: grid;
+  gap: 15px;
+}
+
+.grid-img {
+  width: auto;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  outline: 1.8px solid grey;
+}
+
+.grid-container .grid-img:hover {
+  /* box-sizing: border-box; */
+  outline: 2.25px solid white;
+  transition: 0.125s;
+}
+
+.div-classifier {
+  text-transform: uppercase;
+  color: #aabbcc;
+  margin: 15px 0;
+  letter-spacing: 2px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.div-time-since-update {
+  color: #667788;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 5px 0;
+  border-top: 1px solid #445566;
+  border-bottom: 1px solid #445566;
+}
+
+.div-list-tagline {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.div-list-description {
+  color: #9ab;
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 22px;
+  letter-spacing: 0.5px;
+}
+
+.grid-img-container {
+    cursor: pointer;
+}
+
+.grid-img-elements {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.delete-film-button-icon {
+  margin: 8px;
+}
+
+.delete-film-button {
+  border: 0;
+  outline: 0;
+  margin: 0;
+  padding: 0;
+  background-color: inherit;
+  cursor: pointer;
+}

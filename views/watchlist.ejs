@@ -1,0 +1,37 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<link rel="stylesheet" href="/css/watched_films.css">
+<title>Polaroid | <%=username %> | Watchlist</title>
+<div class="main">
+    <div class="header">
+        <div> <%= userWatchList %>'s watchlist</div>
+        <label class="switch">
+            <input type="checkbox" class="grid-num-control" autocomplete="off" onclick="changeGridLayout()"
+                id="grid-checkbox">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <!-- <div class="header-bar">There are 789,912 films</div> -->
+    <div class="grid-container" id="grid-container">
+      <% for (let i=0; i<data.length; i++) { %>
+        <div class="grid-img-container">
+          <div class="grid-img-elements">
+            <a href=<%= "/film"+data[i].id %>>
+              <img class="grid-img" src=<%="https://image.tmdb.org/t/p/original"+ data[i].poster_path %> alt="image">
+            </a>
+            <% if (editable===true) { %>
+            <form method="post" action=<%="/user/watchlist/"+data[i].id %> >
+              <button type="submit" class="delete-film-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#456" class="bi bi-trash-fill delete-film-button-icon" viewBox="0 0 16 16" opacity="0.8">
+                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg>
+              </button>
+            </form>
+            <% } %>
+          </div>
+        </div>
+      <% } %>
+    </div>
+</div>
+<script src="/scripts/watched_films.js" charset="utf-8"></script>
+<%- include('./partials/footer.ejs') %>

@@ -1,0 +1,74 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<title>Profile</title>
+<link rel="stylesheet" href="/css/profile.css">
+<div class="main">
+  <div class="profile-header">
+    <div class="profile-data">
+      <img src="/assets/cat.jpg" height="100px" class="dp">
+      <div class="profile-metadata">
+          <div class="profile-name"> <%= username %> </div>
+          <% if (!currentUser) { %>
+            <button class="followButton">FOLLOW</button>
+          <% } %>
+      </div>
+    </div>
+    <div class="profile-social-metadata">
+      <div class="social-component">
+          <div class="social-component-counter"> <%= data.watched.length %> </div>
+          <a href="/user/watchedfilms" class="social-component-name">films</a>
+      </div>
+      <div class="social-component">
+          <div class="social-component-counter"> <%=listLength%> </div>
+          <a href="/user/list" class="social-component-name">lists</a>
+      </div>
+      <div class="social-component">
+          <div class="social-component-counter"> <%= data.following.length %> </div>
+          <a href=<%="/following/"+username.split("%20").join(" ")%> class="social-component-name">following</a>
+      </div>
+      <div class="social-component">
+          <div class="social-component-counter"> <%= data.followers.length %> </div>
+          <a href=<%="/followers/"+username.split("%20").join(" ")%> class="social-component-name">followers</a>
+      </div>
+    </div>
+  </div>
+  <div class="select-section">
+    <div class="nav-link">
+      <a href="/user/profile" class="section-name  active">profile</a>
+    </div>
+    <div class="nav-link">
+      <a href="/user/watchedfilms" class="section-name">watched films</a>
+    </div>
+    <div class="nav-link">
+      <a href="/user/watchlist" class="section-name">watchlist</a>
+    </div>
+    <div class="nav-link">
+      <a href="/user/list" class="section-name">list</a>
+    </div>
+    <div class="nav-link">
+      <a href="/user/followers" class="section-name">network</a>
+    </div>
+  </div>
+
+  <div class="section-heading">favorite films</div>
+  <% if (data.favourites.length===0) { %>
+    <p style="color: white;">No favourites added yet!</p>
+  <% } %>
+  <div class="grid-container">
+    <% for (let i=0; i<data.favourites.length; i++) { %>
+      <div class="grid-img-container"> <a href=<%= "/film/"+data.favourites[i].id %>> <img class="grid-img" src=<%= "https://image.tmdb.org/t/p/original/"+data.favourites[i].poster_path %> alt="image"> </a> </div>
+    <% } %>
+  </div>
+
+  <div class="section-heading">recently watched</div>
+  <% if (data.watched.length===0) { %>
+    <p style="color: white;">No movies added to watched yet!</p>
+  <% } %>
+  <div class="grid-container">
+    <% for (let i=0; i<Math.min(data.watched.length, 6); i++) { %>
+      <div class="grid-img-container"> <a href=<%= "/film/"+data.watched[i].id %>> <img class="grid-img" src=<%= "https://image.tmdb.org/t/p/original/"+data.watched[i].poster_path %> alt="image"> </a> </div>
+    <% } %>
+  </div>
+</div>
+<script src="/scripts/profile.js" charset="utf-8"></script>
+<%- include('./partials/footer.ejs') %>

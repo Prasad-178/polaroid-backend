@@ -1,0 +1,145 @@
+body {
+  background-color: #14181c;
+  min-height: 100vh;
+}
+
+/* //2b3467 */
+
+.main {
+  font-family: sans-serif;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #fcffe7;
+}
+
+.seat {
+  background-color: #bad7e9;
+  height: 18px;
+  width: 23px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  margin: 12px;
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+.movie-selector {
+  display: block;
+  margin: 12px 0px 15px 0px;
+  width: auto;
+  padding: 4% 4%;
+  font-size: 18px;
+  font-weight: 400;
+  border-radius: 5px;
+  background-color: #a3d4ec;
+  border: none;
+}
+
+.button-submit{
+  margin: 20px 0px;
+  background-color: transparent;
+  height: 50px;
+  width: 180px;
+  border: 1px solid #198754;
+  color: #198754;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.button-submit:hover {
+  background-color: #198754;
+  color: #14181c;
+  transition: 0.4s;
+}
+
+.button-submit:active {
+  transform: translateY(3px);
+  transition: 0.1s;
+}
+
+
+.selector-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: 5.5%;
+}
+.selected {
+  background-color: #1f8a70;
+}
+
+.Occupied {
+  background-color: #eb455f;
+}
+
+.seat:not(.Occupied):hover {
+  cursor: pointer;
+  transform: scale(1.5);
+  transition: 0.2s;
+}
+
+.screen {
+  height: 158px;
+  width: 100%;
+  margin: 15px 0;
+  background-color: whitesmoke;
+  box-shadow: 0px 5px 10px 2px rgb(255, 255, 255, 0.75);
+}
+
+.div-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.seat-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.seat-group-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.seat-container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  justify-content: space-between;
+  /* grid-gap: 10px; */
+}
+
+p.text {
+  margin: 5px 5px;
+}
+p.text span {
+  color: aqua;
+}
+
+.heade-div {
+  font-size: 26px;
+  color: DarkGoldenRod;
+  margin-bottom: 12px;
+  font-weight: 500;
+  letter-spacing: 1.25px;
+}
+
+.info-zone {
+  height: 15px;
+  width: 100%;
+  color: #9ab;
+  margin: 25px 12px;
+  display: flex;
+  flex-direction: row;
+}

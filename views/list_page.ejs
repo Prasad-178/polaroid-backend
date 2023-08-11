@@ -1,0 +1,56 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<title>List</title>
+<link rel="stylesheet" href="/css/list_page.css">
+<div class="main">
+  <div class="meta-data">
+    <div class="div-classifier">
+      <%= heading %>
+    </div>
+    <div class="div-time-since-update">
+      <%= time %>
+    </div>
+    <div class="div-list-tagline">
+      <%= listHeading %>
+    </div>
+    <div class="div-list-description">
+      <% if (isTrending===true) { %>
+      Discover the top, most popular movies available now!<br>
+      Across theaters, streaming, and on-demand, these are the movies Polaroid users are checking out at this very moment.<br>
+      We hope you will enjoy your time watching the movies.
+      <% } %>
+      <% if (isTrending===false) { %>
+      <%= data.description %>
+      <% } %>
+    </div>
+  </div>
+  <% if (isTrending===true) { %>
+  <div class="grid-container" id="grid-container">
+    <% for (let index=0; index < data.results.length; index++) { %>
+    <div class="grid-img-container"> <a href=<%= "/film/"+data.results[index].id %>> <img class="grid-img" src=<%= "https://image.tmdb.org/t/p/original"+data.results[index].poster_path %> alt="image"> </a></div>
+    <% } %>
+  </div>
+  <% } %>
+  <% if (isTrending===false) { %>
+  <div class="grid-container" id="grid-container">
+    <% for (let index=0; index < data.items.length; index++) { %>
+    <div class="grid-img-container">
+      <div class="grid-img-elements">
+        <div class="grid-img-container"> <a href=<%= "/film/"+data.items[index].id %>> <img class="grid-img" src=<%= "https://image.tmdb.org/t/p/original"+data.items[index].poster_path %> alt="image"> </a></div>
+        <% if (editable===true) { %>
+        <form method="post" action=<%="/user/delete/list/"+listHeading.split(" ").join("%20")+"/"+data.items[index].id %> >
+          <button type="submit" class="delete-film-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#456" class="bi bi-trash-fill delete-film-button-icon" viewBox="0 0 16 16" opacity="0.8">
+              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+            </svg>
+          </button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+</div>
+<script src="/scripts/list_page.js" charset="utf-8"></script>
+<%- include('./partials/footer.ejs') %>

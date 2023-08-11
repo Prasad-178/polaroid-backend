@@ -1,0 +1,58 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<title>Polaroid | Lists</title>
+<link rel="stylesheet" type="text/css" href="/css/list.css" />
+<div class="main">
+    <div class="section-header">
+        <div class="section-header-description">Trending Lists</div>
+    </div>
+    <div class="list-card-group" id="card-group">
+        <div class="list-card">
+            <a href="/trending/week">
+                <div class="img-container"><img src="https://i.etsystatic.com/34708433/r/il/15fb83/4498029997/il_570xN.4498029997_cjib.jpg" alt="Avatar"></div>
+                <div class="description-container">
+                    <div class="description-header">Trending This Week</div>
+                    <div class="description-content">Discover the top, most popular movies available now!</div>
+                </div>
+            </a>
+        </div>
+        <div class="list-card">
+            <a href="/trending/day">
+                <div class="img-container"><img src="https://assets-prd.ignimgs.com/2023/02/08/jw4-2025x3000-online-character-1sht-keanu-v187-1675886090936.jpg" alt="Avatar"></div>
+                <div class="description-container">
+                    <div class="description-header">Trending Today</div>
+                    <div class="description-content">Discover the top, most popular movies available now!</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+    <div class="section-header">
+        <div class="section-header-description">User Lists</div>
+    </div>
+    <% if (lists.length === 0) { %>
+        <p>There are no lists created by any user!</p>
+    <% } %>
+    <div class="list-card-group" id="card-group">
+        <% for (let index=0; index<Math.min(lists.length, 12); index++) { %>
+            <div class="list-card">
+                <a href= <%= 'list/'+lists[index].createdBy.split(" ").join("%20") +"/"+lists[index].listName.split(" ").join("%20") %> >
+                    <% if (lists[index].items.length > 0) { %>
+                        <div class="img-container"><img src= <%= "https://image.tmdb.org/t/p/original" + lists[index].items[0].poster_path %> alt="Avatar"></div>
+                    <% } %>
+                    <% if (lists[index].items.length === 0) { %>
+                        <div class="img-container"><img src= <%= "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg" %> alt="Avatar"></div>
+                    <% } %>
+                    <div class="description-container">
+                        <div class="description-header"> <%= lists[index].listName %> </div>
+                        <div class="description-content"> <%= "by " + lists[index].createdBy %> </div>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</div>
+<%- include('./partials/footer') %>
+<script src="/scripts/list.js" charset="utf-8"></script>

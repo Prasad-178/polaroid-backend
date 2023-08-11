@@ -1,0 +1,76 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<title>List Search | Polaroid</title>
+<link rel="stylesheet" type="text/css" href="/css/list_search.css" />
+<div class="main">
+  <div>
+    <div class="clearfix">
+      <h4 class="white float-start">Lists</h4>
+      <div class="dropdown float-end">
+        <button class="dropbtn">Sort</button>
+        <div class="dropdown-content">
+          <a href="#">Name [A-Z]</a>
+          <a href="#">Popularity</a>
+          <a href="#">Rate</a>
+          <a href="#">Last Updated</a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <a href="#">
+          <img src="/assets/filmimg.jpg" alt="...">
+          <div class="container">
+            <h4>List 1</h4>
+            <p>This is some placeholder content for the custom component. It is intended to mimic what
+              some
+              real-world content would look like, and we're using it here to give the component a bit
+              of
+              body and size.</p>
+          </div>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">
+          <img src="/assets/filmimg.jpg" alt="...">
+          <div class="container">
+            <h4>List 1</h4>
+            <p>This is some placeholder content for the custom component. It is intended to mimic what
+              some
+              real-world content would look like, and we're using it here to give the component a bit
+              of
+              body and size.</p>
+          </div>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">
+          <img src="/assets/filmimg.jpg" alt="...">
+          <div class="container">
+            <h5>List 1</h5>
+            <p>This is some placeholder content for the custom component. It is intended to mimic what
+              some
+              real-world content would look like, and we're using it here to give the component a bit
+              of
+              body and size.</p>
+          </div>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">
+          <img src="/assets/filmimg.jpg" alt="...">
+          <div class="container">
+            <h5>List 1</h5>
+            <p>This is some placeholder content for the custom component. It is intended to mimic what
+              some
+              real-world content would look like, and we're using it here to give the component a bit
+              of
+              body and size.</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<%- include('./partials/footer.ejs') %>

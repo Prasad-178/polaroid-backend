@@ -1,0 +1,97 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/booking_details.css">
+<title>Polaroid | Booking Details</title>
+<div class="main">
+    <form method="get" id="form" onchange="return validateForm()">
+        <div class="contact-essentials">
+          <div class="email-div">
+              <label for="email-input" class="email-label">Enter your email-address</label>
+              <input type="text" class="email-box" placeholder="input@example.com" id="email-input" required autocomplete="off"
+              oninvalid="this.setCustomValidity('Email Address can not be empty')"
+              oninput="this.setCustomValidity('')">
+          </div>
+          <div class="email-div">
+              <label for="mobile-input" class="email-label">Enter your mobile number</label>
+              <input type="text" class="email-box" id="mobile-input" placeholder="(+91) 9874563210" required autocomplete="off"
+              oninvalid="this.setCustomValidity('Mobile Number can not be empty')"
+              oninput="this.setCustomValidity('')">
+          </div>
+          <div class="error-div" id="alert-zone-1"></div>
+          <div class="error-div" id="alert-zone-2"></div>
+        </div>
+
+        <% if (data.length !== 0) { %>
+          <div class="selector-container">
+            <label class="movie-selector-label" for ="venue">Select A Venue</label>
+            <select id="venue" class="movie-selector" required autocomplete="off"
+              onchange="renderTimings()"
+              oninvalid="this.setCustomValidity('Please select a venue')"
+              oninput="this.setCustomValidity('')">
+                <% for (let i=0; i<data.length; i++) { %>
+                  <option class="locationSelect" value=<%= i %>> <%=data[i].locations[0] %> </option>
+                <% } %>
+            </select>
+            <label class="movie-selector-label" for ="movie">Select A Movie</label>
+            <select id="movie" class="movie-selector" required autocomplete="off"
+              oninvalid="this.setCustomValidity('Please select a show timing')"
+              oninput="this.setCustomValidity('')">
+              <option class="timingClass" value="one">Option</option>
+            </select>
+          </div>
+        <% } else { %>
+          <p style="color: red; font-size:large;">No shows available!</p>
+        <% } %>
+
+        <div>
+          <div class="personal-info-div" name="person-personal-info">
+            <div class="email-div">
+                <label for="name-input" class="email-label">Enter the name</label>
+                <input type="text" class="email-box personal-info" id="name-input" placeholder="Alex John" required autocomplete="off"
+                oninvalid="this.setCustomValidity('Name can not be empty')"
+                oninput="this.setCustomValidity('')">
+            </div>
+
+            <div class="email-div">
+                <label for="dob-input" class="email-label">Select the date of birth</label>
+                <input type="date" class="email-box personal-info" name="date-select" id="dob-input" required autocomplete="off"
+                oninvalid="this.setCustomValidity('Enter a valid date of birth')"
+                oninput="this.setCustomValidity('')">
+            </div>
+
+            <div class="email-div">
+                <label for="address-input" class="email-label">Enter the address</label>
+                <textarea type="text" class="address-box personal-info" id="address-input" required autocomplete="off"
+                oninvalid="this.setCustomValidity('Adress can not be empty')"
+                oninput="this.setCustomValidity('')"></textarea>
+            </div>
+
+            <div class="gender-div">
+                <label for="gender-input" class="email-label">Select the gender</label>
+                <select class="gender-drop-box personal-info" id="gender-input" required autocomplete="off"
+                oninvalid="this.setCustomValidity('Please select the gender')"
+                oninput="this.setCustomValidity('')">
+                <option value="">--Select--</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="dwts">Don't want to say</option>
+                </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="accept-terms">
+        <input type="checkbox" id="accept-term-input" class="accept-terms-checkbox" required autocomplete="off">
+        <label for="accept-term-input" class="email-label">I accept Terms and Conditions</label>
+        </div>
+        <div class="control-div">
+        <button type="button" class="btn btn-outline-danger" style="width: 37%" id="refresh-button" onclick="refreshPage()">Reset</button>
+        <button type="button" class="btn btn-outline-warning" style="width: 37%" id="add-button" onclick="addPerson()">Add Person</button>
+        </div>
+
+        <button type="button" onclick="submit_form()" class="btn btn-outline-info" style="width: 100%" id="submit-button" disabled>Submit</button>
+    </form>
+</div>
+<script src="/scripts/booking_details.js" charset="utf-8"></script>
+<%- include('./partials/footer.ejs') %>

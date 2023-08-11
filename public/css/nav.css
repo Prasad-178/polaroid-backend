@@ -1,0 +1,131 @@
+@media screen and (max-width: 850px) {
+    .nav-main {
+        padding-left: 0px;
+        padding-right: 0px;
+        width: 90%;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 5%;
+    align-items: center;
+    width: 80%;
+}
+
+nav ul {
+    list-style: none;
+}
+
+.navbar-list-element {
+    display: inline-block;
+    font-weight: 550;
+}
+
+.navbar-anchor {
+    text-decoration: none;
+    color: #8291A5;
+    padding: 8px 8px;
+    border-radius: 7px;
+    transition: all .3s ease;
+}
+
+.navbar-anchor:hover, .active {
+    color: #628ebc;
+    text-decoration: none;
+}
+
+.logo {
+    color: #FFF;
+    font-size: 22px;
+}
+
+.nav-search {
+  color: whitesmoke;
+  font-size: 19px;
+}
+
+#searchButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    scale: 1.2;
+}
+
+#searchButton img {
+    background-color: transparent;
+}
+
+#icon {
+    background-color: #0075FF;
+    padding: 5px 7px 3px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+#icon svg {
+    color: #FFF;
+    height: 28px;
+    transition: all .3s ease;
+}
+
+#icon:hover {
+    background: #FFF;
+}
+
+#icon:hover svg {
+    color: #0075FF;
+}
+
+#checkbox,
+#icon {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        border-bottom: 1px solid #455468;
+    }
+
+    nav ul {
+        position: absolute;
+        height: 100vh;
+        /* height: 100vh; */
+        /* height: calc(100vh - 71px); */
+        background-color: #18283B;
+        left: 0;
+        top: 0;
+        text-align: center;
+        display: none;
+        margin-top: 71px;
+    }
+
+    .navbar-list-element {
+        display: block;
+        padding: 10px 15px;
+    }
+
+    .navbar-anchor {
+        display: block;
+        padding: 10px 0;
+    }
+
+    #icon {
+        display: block;
+    }
+
+    #checkbox:checked~ul {
+        display: block;
+    }
+}

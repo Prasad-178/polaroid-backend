@@ -1,0 +1,39 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<link rel="stylesheet" href="/css/booking.css">
+<title>Polaroid | Seat Selection</title>
+<form onclick="finalize_seat()">
+  <div class="main">
+      <div class="heade-div">
+        Please select your seat(s)
+      </div>
+      <div class="seat-group-div">
+        <div class="seat-group">
+          <div class="seat"> </div>
+          <small>Available</small>
+        </div>
+        <div class="seat-group">
+          <div class="seat selected"> </div>
+          <small>Selected</small>
+        </div>
+        <div class="seat-group">
+          <div class="seat Occupied"> </div>
+          <small>Occupied</small>
+        </div>
+      </div>
+
+      <div class="div-container">
+          <div class="screen">
+          </div>
+          <div class="seat-container" id="seat-container">
+              <div class="seat" id="00" onclick="seat_selection(this.id)"></div>
+          </div>
+      </div>
+      <div class="info-zone">
+        You have selected&nbsp;<div id="info-zone"></div>&nbsp;seats.
+      </div>
+      <button type="button" onclick="return seat_list_ret()" id="submit-button" class="btn btn-outline-success" style="width:75%;" disabled>Proceed to Payment</button>
+  </div>
+</form>
+<script src="/scripts/book_seats.js" charset="utf-8"></script>
+<%- include('./partials/footer.ejs') %>

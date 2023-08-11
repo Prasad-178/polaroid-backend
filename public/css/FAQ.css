@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora&display=swap");
+
+body {
+  font-family: "Lora", serif;
+  background-color: #14181c;
+}
+
+section img {
+  width: 10%;
+  position: absolute;
+  top: 6%;
+  left: 4%;
+  height: auto;
+}
+
+.faq-list {
+  margin-left: 10%;
+  padding: 1%;
+  margin-right: 10%;
+}
+
+.faq-list li {
+  background-color: #accef0;
+  margin-bottom: 4%;
+  border-radius: 20px;
+  padding: 2%;
+}
+
+.faq-list a {
+  text-align: center;
+  display: block;
+  position: relative;
+  font-size: 200%;
+  font-weight: 600;
+  color: #14181c;
+}
+
+.faq-title {
+  text-align: center;
+  font-size: 200%;
+  border-bottom: 10px double white;
+  margin-left: 10%;
+  margin-top: 9%;
+  margin-bottom: 2%;
+  margin-right: 10%;
+  color: #ffffff;
+}
+
+.faq-list p {
+  text-align: center;
+  padding-top: 1%;
+  margin-bottom: 2%;
+  font-size: 100%;
+}

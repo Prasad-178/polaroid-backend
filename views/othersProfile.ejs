@@ -1,0 +1,119 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<title>Profile</title>
+<link rel="stylesheet" href="/css/profile.css">
+<div class="main">
+  <div class="profile-header">
+    <div class="profile-data">
+      <img src="/assets/cat.jpg" height="100px" class="dp">
+      <div class="profile-metadata">
+          <div class="profile-name"> <%= data.username %> </div>
+          <% if (!currentUser && !data.followers.includes(email)) { %>
+            <form method="post" action=<%= "/profile/follow/" + data.username.split(" ").join("%20") %>>
+              <button class="followButton" type="submit">FOLLOW +</button>
+            </form>
+          <% } %>
+          <% if (!currentUser && data.followers.includes(email)) { %>
+            <form method="post" action=<%= "/profile/unfollow/" + data.username.split(" ").join("%20") %>>
+              <button class="followButton" type="submit"> FOLLOWING ✅ </button>
+            </form>
+          <% } %>
+      </div>
+    </div>
+    <div class="profile-social-metadata">
+      <div class="social-component">
+        <% if (data.watched) { %>
+          <div class="social-component-counter"> <%= data.watched.length  %> </div>
+        <% } %>
+        <% if (!data.watched) { %>
+          <div class="social-component-counter"> 0 </div>
+        <% } %>
+        <a href= <%= "/watchedfilms/"+data.username.split(" ").join("%20") %> class="social-component-name">films</a>
+      </div>
+      <div class="social-component">
+          <div class="social-component-counter"> <%= listLength || "0" %> </div>
+          <a href= <%= "/lists/"+data.username.split(" ").join("%20") %> class="social-component-name">lists</a>
+      </div>
+      <div class="social-component">
+          <div class="social-component-counter"> <%= data.following.length %> </div>
+          <a href= <%= "/following/"+data.username.split(" ").join("%20") %> class="social-component-name">following</a>
+      </div>
+      <div class="social-component">
+          <div class="social-component-counter"> <%= data.followers.length %> </div>
+          <a href= <%= "/followers/"+data.username.split(" ").join("%20") %> class="social-component-name">followers</a>
+      </div>
+    </div>
+  </div>
+  <div class="select-section">
+    <div class="nav-link">
+      <a href= <%= "/profile/"+data.username.split(" ").join("%20") %> class="section-name  active">profile</a>
+    </div>
+    <div class="nav-link">
+      <a href= <%= "/watchedfilms/"+data.username.split(" ").join("%20") %> class="section-name">watched films</a>
+    </div>
+    <div class="nav-link">
+      <a href= <%= "/watchlist/"+data.username.split(" ").join("%20") %> class="section-name">watchlist</a>
+    </div>
+    <div class="nav-link">
+      <a href= <%= "/lists/"+data.username.split(" ").join("%20") %> class="section-name">lists</a>
+    </div>
+    <div class="nav-link">
+      <a href= <%= "/followers/"+data.username.split(" ").join("%20") %> class="section-name">network</a>
+    </div>
+  </div>
+
+  <div class="section-heading">favorite films</div>
+  <% if (data.favourites.length===0) { %>
+    <p style="color: white;">No favourites added yet!</p>
+  <% } %>
+  <div class="grid-container">
+    <% for (let i=0; i<data.favourites.length; i++) { %>
+      <div class="grid-img-container"> <a href=<%= "/film/"+data.favourites[i].id %>> <img class="grid-img" src=<%= "https://image.tmdb.org/t/p/original/"+data.favourites[i].poster_path %> alt="image"> </a> </div>
+    <% } %>
+  </div>
+
+  <div class="section-heading">recently watched</div>
+  <% if (data.favourites.length===0) { %>
+    <p style="color: white;">No movies added to watched yet!</p>
+  <% } %>
+  <div class="grid-container">
+    <% for (let i=0; i<Math.min(data.watched.length, 6); i++) { %>
+      <div class="grid-img-container"> <a href=<%= "/film/"+data.watched[i].id %>> <img class="grid-img" src=<%= "https://image.tmdb.org/t/p/original/"+data.watched[i].poster_path %> alt="image"> </a> </div>
+    <% } %>
+  </div>
+
+
+  <!-- <div class="section-heading">
+    <div>recent reviews</div>
+  </div>
+  <div class="element-container">
+    <div class="film-image-container">
+      <img class="film-image" src="/assets/filmimg.jpg" alt="image">
+    </div>
+    <div class="film-content">
+      <div class="film-header">
+        <a class="film-name" href="/film">Avatar: The Way of Water</a>
+        <div class="film-year">2022</div>
+      </div>
+      <div class="film-review">
+        All time best movie
+      </div>
+    </div>
+  </div> -->
+  <!-- <div class="element-container">
+    <div class="film-image-container">
+      <img class="film-image" src="/assets/list_image.jpg" alt="image">
+    </div>
+    <div class="film-content">
+      <div class="film-header">
+        <a class="film-name" href="/film">Maggie</a>
+        <div class="film-year">2015</div>
+      </div>
+      <div class="film-review">
+        All time best movie
+      </div>
+    </div>
+  </div> -->
+</div>
+<script src="/scripts/profile.js" charset="utf-8"></script>
+<%- include('./partials/footer.ejs') %>

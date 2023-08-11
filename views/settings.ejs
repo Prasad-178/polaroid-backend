@@ -1,0 +1,52 @@
+<%- include('./partials/boilerplate.ejs') %>
+  <%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/settings.css" />
+    <title>Polaroid | Settings</title>
+    <div class="settings-main">
+      <div class="settings-header">
+        Account Settings
+      </div>
+      <form method="post" action="/user/settings" class="main-container" onchange="return validateForm()">
+        <div class="info-container">
+          <div class="section-header">Profile</div>
+          <label for="username" class="label-input">Username</label>
+          <input class="input-field" type="text" name="username" value=<%=username %> id="username" autocomplete="off"/>
+
+          <label for="email" class="label-input">Email Address</label>
+          <input class="input-field" type="email" name="email" value=<%=email %> id="email" disabled />
+
+          <div class="section-header">
+            <div>Change password</div>
+            <div class="alert-zone" id="alert-zone"></div>
+          </div>
+          <label class="label-input" for="origPs">Original Password</label>
+          <input class="password-box" name="originalPassword" type="password" id="origPs" autocomplete="off"/>
+
+          <label class="label-input" for="password-input">New password</label>
+          <input class="password-box" name="newPassword" type="password" id="password-input" autocomplete="off"/>
+
+          <label class="label-input" for="repassword-input">Re-enter new password</label>
+          <input class="password-box" name="reenterNewPassword" type="password" id="repassword-input" autocomplete="off"/>
+          <p style="color: red;"> <%= !data.success ? data.error : data.successMessage %> </p>
+          <div class="buttons-div">
+            <a href="/user/deactivate">
+              <button type="button" class="btn btn-outline-danger">
+                DEACTIVATE ACCOUNT
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+              </button>
+            </a>
+            <button type="submit" class="btn btn-outline-info" id="submit-button">
+              SAVE CHANGES
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="/scripts/settings.js" charset="utf-8"></script>
+    <%- include('./partials/footer.ejs') %>

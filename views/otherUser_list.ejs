@@ -1,0 +1,32 @@
+<%- include('./partials/boilerplate.ejs') %>
+<%- include('./partials/nav.ejs', {check: check, username: username, email: email}) %>
+<title>Polaroid | <%= usernameList%>'s Lists</title>
+<link rel="stylesheet" type="text/css" href="/css/list.css" />
+<div class="main">
+    <div class="section-header">
+        <div class="section-header-description"><%= usernameList %>'s Lists</div>
+    </div>
+    <% if (lists.length === 0) { %>
+        <p style="color: red;">No lists found!!</p>
+    <% } %>
+    <div class="list-card-group" id="card-group">
+        <% for (let index=0; index<Math.min(lists.length, 12); index++) { %>
+            <div class="list-card">
+                <a href= <%= '/list/'+lists[index].createdBy.split(" ").join("%20") +"/"+lists[index].listName.split(" ").join("%20") %> >
+                    <% if (lists[index].items.length > 0) { %>
+                        <div class="img-container"><img src= <%= "https://image.tmdb.org/t/p/original" + lists[index].items[0].poster_path %> alt="Avatar"></div>
+                    <% } %>
+                    <% if (lists[index].items.length === 0) { %>
+                        <div class="img-container"><img src= <%= "https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg" %> alt="Avatar"></div>
+                    <% } %>
+                    <div class="description-container">
+                        <div class="description-header"> <%= lists[index].listName %> </div>
+                        <div class="description-content"> <%= "by " + lists[index].createdBy %> </div>
+                    </div>
+                </a>
+            </div>
+        <% } %>
+    </div>
+</div>
+<%- include('./partials/footer') %>
+<script src="/scripts/list.js" charset="utf-8"></script>
