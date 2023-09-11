@@ -9,29 +9,39 @@ const register = async (req, res) => {
         existingUser = await User.findOne({ email: email }).exec()
     } catch (err) {
         console.log(err)
-        res.render('register', { error: "Internal server error!" })
-        return
+        // res.render('register', { error: "Internal server error!" })
+        // return
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
     if (existingUser) {
-        res.render('register', { error: "A user with this email already exists!" })
-        return
+        // res.render('register', { error: "A user with this email already exists!" })
+        // return
+        return res
+            .status(403)
+            .json({ error: "A user with this email already exists!" })
     }
 
     try {
         existingUser = await User.findOne({ username: username }).exec()
     } catch (err) {
         console.log(err)
-
-        res.render('register', { error: "Internal server error!" })
-        return
+        // res.render('register', { error: "Internal server error!" })
+        // return
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
     if (existingUser) {
         // console.log(err)
-
-        res.render('register', { error: "A user with this username already exists!" })
-        return
+        // res.render('register', { error: "A user with this username already exists!" })
+        // return
+        return res
+            .status(402)
+            .json({ error: "A user with this username already exists!" })
     }
 
     const hashedPassword = bcrypt.hashSync(password, 12)
@@ -52,8 +62,11 @@ const register = async (req, res) => {
         await newUser.save()
     } catch (err) {
         console.log(err)
-        res.render('register', { error: "Internal server error!" })
-        return
+        // res.render('register', { error: "Internal server error!" })
+        // return
+        return res
+            .status(403)
+            .json({ error: "A user with this username already exists!" })
     }
 
     res

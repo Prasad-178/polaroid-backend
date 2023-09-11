@@ -17,6 +17,28 @@ function validateForm() {
     return emailValidation;
 }
 
+document.getElementById("forgotPassForm").onsubmit = function(e) {
+    e.preventDefault()
+    // console.log("ummmmmm")
+    
+    const xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        window.location.href = "http://localhost:3500/user/resetpassword";
+      }
+      const responseText = JSON.parse(this.responseText)
+      console.log(responseText)
+      if (this.readyState === 4 && this.status >= 400) {
+        document.getElementById("alert-zone-1").innerHTML = responseText.error
+      }
+    }
+  
+    xhr.open("POST", "http://localhost:3500/user/forgotpassword", true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(`email=${document.getElementById("email-input").value}`);
+}
+
 function checkEmail() {
     var emailRegex = /\S+@\S+\.\S+/;
 

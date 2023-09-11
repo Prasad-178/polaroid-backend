@@ -4,39 +4,43 @@ const bcrypt = require('bcryptjs')
 
 const resetPassword = async (req, res) => {
   const { email, otp, password } = req.body
-
+  console.log("reset pass form")
   let otpModel
   try {
     otpModel = await OTP.findOne({ email: email }).exec() 
   } catch (err) {
-    res.render('forgot_password_1', {
-      error: "Internal Server Error!"
-    })
-    return
+    return res
+      .status(500)
+      .json({ 
+        error: "Internal Server Error!"
+       })
   }
 
   if (!otpModel) {
-    res.render('forgot_password_2', {
-      error: "Please request for an OTP again!"
-    })
-    return
+    return res
+      .status(500)
+      .json({ 
+        error: "Please request for an OTP again!"
+       })
   }
 
   if (otp !== otpModel.otp) {
-    res.render('forgot_password_2', {
-      error: "OTP is wrong!"
-    })
-    return
+    return res
+      .status(500)
+      .json({ 
+        error: "OTP entered is wrong!"
+       })
   }
 
   let existingUser
   try {
     existingUser = await User.findOne({ email: email }).exec() 
   } catch (err) {
-    res.render('forgot_password_1', {
-      error: "Internal Server Error!"
-    })
-    return
+    return res
+      .status(500)
+      .json({ 
+        error: "Internal Server Error!"
+       })
   }
 
   if (!existingUser) {
@@ -52,13 +56,19 @@ const resetPassword = async (req, res) => {
   try {
     await existingUser.save()
   } catch (err) {
-    res.render('forgot_password_1', {
-      error: "Internal Server Error!"
-    })
-    return
+    return res
+      .status(500)
+      .json({ 
+        error: "Internal Server Error!"
+       })
   }
 
-  res.redirect('/user/login')
+  // res.redirect('/user/login')
+  return res  
+    .status(200)
+    .json({ 
+      message: "Password reset successfully!"
+     })
 }
 
 module.exports = resetPassword

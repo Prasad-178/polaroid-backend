@@ -114,21 +114,21 @@ router.get("/list/:listName", async (req, res) => {
 });
 
 router.post("/delete/list/:listName/:filmname", async (req, res) => {
-  console.log("delete trigger")
+  // console.log("delete trigger")
 
   var listName = req.params.listName.split("%20").join(" ")
   var filmName = req.params.filmname
 
   await deleteItemFromList(listName, filmName)
 
-  console.log(listName+ " " + filmName)
+  // console.log(listName+ " " + filmName)
 
   res.redirect("/user/list/"+listName)
 })
 
 router.get("/watchlist", async (req, res) => {
   const user = await getUser()
-  console.log(user)
+  // console.log(user)
   res.render("watchlist", {
     check: true,
     username: session.username,
@@ -141,8 +141,8 @@ router.get("/watchlist", async (req, res) => {
 
 router.get("/watchedfilms", async (req, res) => {
   const user = await getUser()
-  console.log(user)
-  console.log("wae is : ", typeof user.watched)
+  // console.log(user)
+  // console.log("wae is : ", typeof user.watched)
   res.render("watched_films", {
     check: true,
     username: session.username,

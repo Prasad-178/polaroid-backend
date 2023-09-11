@@ -22,6 +22,27 @@ function emailValidation() {
   return !isInvalidEmail;
 }
 
+document.getElementById("loginForm").onsubmit = function(e) {
+  e.preventDefault()
+  console.log("ummmmmm")
+  
+  const xhr = new XMLHttpRequest();
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+      window.location.href = "http://localhost:3500/";
+    }
+    if (this.readyState === 4 && this.status >= 400) {
+      const responseText = JSON.parse(this.responseText)
+      document.getElementById("alert-zone").innerHTML = responseText.error
+    }
+  }
+
+  xhr.open("POST", "http://localhost:3500/user/login", true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.send(`email=${document.getElementById("email-input").value}&password=${document.getElementById("password-input").value}`);
+}
+
 function onFocusinEmail() {
   document.getElementById("email-input").style.outline = "none";
   document.getElementById("email-input").style.backgroundColor = "white";

@@ -24,7 +24,8 @@
     "nodemailer": "^6.9.1",
     "path": "^0.12.7",
     "sqlite3": "^5.1.6",
-    "stripe": "^12.1.1"
+    "stripe": "^12.1.1",
+    "xhr2": "^0.2.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

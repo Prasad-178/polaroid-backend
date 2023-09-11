@@ -4,41 +4,57 @@ const nodemailer = require('nodemailer')
 const { randomUUID } = require('crypto')
 const variables = require('../../config')
 
-const uuid = randomUUID().slice(0, 6)
-const html = `
-  <div style="display: 'flex', flex-direction: 'column', justify-content: 'center', align-items: 'center'">
-    <h1>Reset your Polaroid Password</h1>
-    <p style="color: 'lightblue'">Your OTP is ` + uuid + ` </p>
-    <p> Kindly ignore this email if this was not you </p>
-    &#169 Polaroid Limited. Made by Arka, Prasad, Urjasvi, Biswadip and Kalyan
-  </div>
-`
 const forgotPasswordOTP = async (req, res) => {
+  const uuid = randomUUID().slice(0, 6)
+  const html = `
+    <div style="display: 'flex', flex-direction: 'column', justify-content: 'center', align-items: 'center'">
+      <h1>Reset your Polaroid Password</h1>
+      <p style="color: 'lightblue'">Your OTP is ` + uuid + ` </p>
+      <p> Kindly ignore this email if this was not you </p>
+      &#169 Polaroid Limited. Made by Arka, Prasad, Urjasvi, Biswadip and Kalyan
+    </div>
+  `
   const { email } = req.body
+  // console
   let user 
   try {
     user = await User.findOne({ email: email }).exec()
   } catch (err) {
-    res.render('forgot_password_1', {
-      error: "Internal Server Error!"
-    })
-    return
+    // res.render('forgot_password_1', {
+    //   error: "Internal Server Error!"
+    // })
+    // return
+    return res
+      .status(500)
+      .json({ 
+        error: "Internal server error!"
+       })
   }
 
   if (!user) {
-    res.render('forgot_password_1', {
-      error: "No such user exists!"
-    })
-    return
+    // res.render('forgot_password_1', {
+    //   error: "No such user exists!"
+    // })
+    // return
+    return res
+      .status(404)
+      .json({ 
+        error: "No such user exists!"
+       })
   }
 
   try {
     await OTP.findOneAndDelete({ email: email }).exec()
   } catch (err) {
-    res.render('forgot_password_1', {
-      error: "Internal Server Error!"
-    })
-    return
+    // res.render('forgot_password_1', {
+    //   error: "Internal Server Error!"
+    // })
+    // return
+    return res
+      .status(500)
+      .json({ 
+        error: "Internal server error!"
+       })
   }
 
   const otp = new OTP({
@@ -49,10 +65,15 @@ const forgotPasswordOTP = async (req, res) => {
   try {
     otp.save()
   } catch (err) {
-    res.render('forgot_password_1', {
-      error: "Internal Server Error!"
-    })
-    return
+    // res.render('forgot_password_1', {
+    //   error: "Internal Server Error!"
+    // })
+    // return
+    return res
+      .status(500)
+      .json({ 
+        error: "Internal server error!"
+       })
   }
 
   let transporter = nodemailer.createTransport({
@@ -72,16 +93,25 @@ const forgotPasswordOTP = async (req, res) => {
 
   transporter.sendMail(mailOptions, (err, success) => {
       if (err) {
-          console.log(err)
-          return
+          // console.log(err)
+          // return
+          return res
+          .status(500)
+          .json({ 
+            error: err
+          })
       }
       else {
           console.log("Success, email has been sent.", success)
       }
   })
 
-  res.redirect('/user/resetpassword')
-
+  // res.redirect('/user/resetpassword')
+  return res
+      .status(200)
+      .json({ 
+        message: "OTP Sent Successfully!"
+       })
 }
 
 module.exports = forgotPasswordOTP

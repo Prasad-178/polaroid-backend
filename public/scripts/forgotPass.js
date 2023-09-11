@@ -39,26 +39,26 @@ function validateForm() {
   return emailValidation && passValidation && passStrength;
 }
 
-document.getElementById("registerForm").onsubmit = function(e) {
+document.getElementById("resetPassForm").onsubmit = function(e) {
   e.preventDefault()
   console.log("ummmmmm")
+  console.log("reset pass form")
   
   const xhr = new XMLHttpRequest();
-
+  
   xhr.onreadystatechange = function () {
     if (this.readyState === 4 && this.status === 200) {
       window.location.href = "http://localhost:3500/user/login";
     }
-    const responseText = JSON.parse(this.responseText)
-    console.log(responseText)
     if (this.readyState === 4 && this.status >= 400) {
+      const responseText = JSON.parse(this.responseText)
       document.getElementById("alert-zone-1").innerHTML = responseText.error
     }
   }
 
-  xhr.open("POST", "http://localhost:3500/user/register", true);
+  xhr.open("POST", "http://localhost:3500/user/resetpassword", true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhr.send(`email=${document.getElementById("email-input").value}&password=${document.getElementById("password-input").value}&username=${document.getElementById("name-input").value}`);
+  xhr.send(`email=${document.getElementById("email-input").value}&otp=${document.getElementById("name-input").value}&password=${document.getElementById("password-input").value}`);
 }
 
 function checkEmail() {
