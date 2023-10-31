@@ -8,8 +8,16 @@ const baseRouter = require('./routes/base')
 const mongoose = require('mongoose')
 const variables = require('./config')
 const verifyToken = require('./middleware/verifyToken')
+const cors = require('cors')
 
 const app = express()
+
+app.use(express.json({limit: '50mb'}));
+app.use(cors({
+    origin:["http://localhost:3000"],
+    methods:['POST','GET','HEAD','PUT','DELETE'],
+    credentials: true
+}))
 
 app.set('view engine', 'ejs')
 
@@ -24,10 +32,6 @@ app.use('/', verifyToken)
 app.use('/', baseRouter)
 app.use('/user', userRouter)
 app.use('/search', searchRouter)
-
-app.get('/505test', (req,res) => {
-    res.render('505')
-})
 
 app.get('*', (req, res) => {
     res.render('404', {check: true})

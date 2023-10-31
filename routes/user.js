@@ -19,7 +19,10 @@ const deleteAccount = require("../controllers/user/deleteAccount");
 const forgotPasswordOTP = require("../controllers/user/forgotPasswordOTP");
 const resetPassword = require("../controllers/user/resetPassword");
 const deleteItemFromList = require("../controllers/list/deleteItemFromList");
+const userDetails = require("../controllers/user/userDetails")
 const router = Router();
+
+router.get('/check', userDetails)
 
 router.get("/login", (req, res) => {
   res.render("login", { error: "" });

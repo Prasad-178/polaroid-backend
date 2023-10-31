@@ -7,24 +7,29 @@ const getNowPlaying = async () => {
 
     await movieDetails.data
 
-    // let xhr = new XMLHttpRequest();
+    // console.log(movieDetails.data)
 
-    // var ret
-    
-    // let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${variables.api_key}&language=en-US&page=1`;
-    // xhr.open("GET", url, true);
+    // const xhr = new XMLHttpRequest();
+    // let movieDetails
     // xhr.onreadystatechange = function () {
-    //     if (xhr.readyState == 4 && xhr.status == 200) {
-    //         var json = JSON.parse(xhr.responseText)
-    //         // console.log("json is : ", json)
-    //         ret = json
+    //     if (this.readyState === 4 && this.status === 200) {
+    //         const responseText = JSON.parse(this.responseText)
+    //         // console.log(responseText.results)
+    //         // return responseText
+    //         movieDetails = responseText
     //     }
+    //     // if (this.readyState === 4 && this.status >= 400) {
+    //     //     const responseText = JSON.parse(this.responseText)
+    //     //     return responseText
+    //     // }
     // }
-    // xhr.send()
-
-    // console.log(ret)
+    
+    // xhr.open("GET", `https://api.themoviedb.org/3/movie/now_playing?api_key=${variables.api_key}&language=en-US&page=1`, true);
+    // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // xhr.send();
 
     return movieDetails.data
+    // return movieDetails
 }
 
 module.exports = getNowPlaying
