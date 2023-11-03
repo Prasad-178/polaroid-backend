@@ -1,13 +1,16 @@
 const user = require("../../models/user")
 const session = require("../../session/session")
 
-const removeFromFavourites = async (item) => {
+const removeFromFavourites = async (req, res) => {
+    const item = req.params.id
     let existingUser
     try {
         existingUser = await user.findOne({ email: session.email }).exec()
     } catch (err) {
         console.log(err)
-        return
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
     existingUser.favourites = existingUser.favourites.filter((x) => {
@@ -18,10 +21,14 @@ const removeFromFavourites = async (item) => {
         await existingUser.save()
     } catch (err) {
         console.log(err)
-        return
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
-    return
+    return res
+        .status(200)
+        .json({ message: "Removed item from favourites successfully!" })
 }
 
 module.exports = removeFromFavourites

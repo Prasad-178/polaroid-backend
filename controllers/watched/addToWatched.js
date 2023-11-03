@@ -2,12 +2,16 @@ const getMovieById = require("../../api/getMovieById")
 const user = require("../../models/user")
 const session = require("../../session/session")
 
-const addToWatched = async (item) => {
+const addToWatched = async (req, res) => {
+    const item = req.params.id
     let existingUser
     try {
         existingUser = await user.findOne({ email: session.email }).exec()
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({error: "Internal server error!"})
     }
 
     for (let i=0; i<existingUser.watched.length; i++) {
@@ -16,7 +20,9 @@ const addToWatched = async (item) => {
 
     if (!existingUser) {
         console.log("No such user exists!")
-        return
+        return res
+            .status(404)
+            .json({error: "No such user exists!"})
     }
 
     const movieData = await getMovieById(item)
@@ -29,9 +35,14 @@ const addToWatched = async (item) => {
         await existingUser.save()
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
-    return
+    return res
+        .status(200)
+        .json({ message: "Added film to watched successfully!" })
 }
 
 module.exports = addToWatched

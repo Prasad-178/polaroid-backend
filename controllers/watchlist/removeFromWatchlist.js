@@ -1,17 +1,23 @@
 const user = require("../../models/user")
 const session = require("../../session/session")
 
-const removeFromWatchlist = async (item) => {
+const removeFromWatchlist = async (req, res) => {
+    const item = req.params.id
     let existingUser
     try {
         existingUser = await user.findOne({ email: session.email }).exec()
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
     if (!existingUser) {
         console.log("No such user exists!")
-        return
+        return res
+            .status(404)
+            .json({ error: "No such user exists!" })
     }
 
     existingUser.planToWatch = existingUser.planToWatch.filter((x) => {
@@ -22,9 +28,14 @@ const removeFromWatchlist = async (item) => {
         await existingUser.save()
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
-    return
+    return res
+        .status(500)
+        .json({ error: "Internal server error!" })
 }
 
 module.exports = removeFromWatchlist

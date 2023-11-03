@@ -1,11 +1,15 @@
 const Theatre = require('../../models/theatre')
 
-const getMovieAvailability = async (id) => {
+const getMovieAvailability = async (req, res) => {
+  const id = req.params.id
   let movies
   try {
     movies = await Theatre.find({}).exec()
   } catch (err) {
     console.log(err)
+    return res
+      .status(500)
+      .json({error: "Internal server error!"})
   }
 
   let details = []
@@ -28,7 +32,9 @@ const getMovieAvailability = async (id) => {
   }
   // console.log(details)
 
-  return details
+  return res
+    .status(200)
+    .json(details)
 }
 
 module.exports = getMovieAvailability

@@ -23,56 +23,62 @@ const addReview = async (req, res) => {
     }).exec();
   } catch (err) {
     console.log(err);
-    const movieData = await getMovieById(req.params.id);
-    const cast = await getMovieCredits(req.params.id);
-    const watch = await getWatchProviders(req.params.id);
-    const reviews = await getReviews(req.params.id);
-    const isFavourite = await checkIfFavourite(id)
-    const similar = await getSimilarMovies(req.params.id);
-    const isWatchlist = await checkIfInWatchlist(id)
-    const isWatched = await checkIfWatched(id)
-    res.render("film", {
-      check: session.isLoggedIn,
-      username: session.username,
-      email: session.email,
-      data: movieData,
-      cast: cast,
-      watchProviders: watch.results.IN,
-      reviews: reviews,
-      errorReview: "",
-    isFavourite: isFavourite,
-    similar: similar,
-    isWatched: isWatched,
-    isWatchlist: isWatchlist
-    });
-    return;
+    return res
+      .status(500)
+      .json({ error: "Internal server error!" })
+    // const movieData = await getMovieById(req.params.id);
+    // const cast = await getMovieCredits(req.params.id);
+    // const watch = await getWatchProviders(req.params.id);
+    // const reviews = await getReviews(req.params.id);
+    // const isFavourite = await checkIfFavourite(id)
+    // const similar = await getSimilarMovies(req.params.id);
+    // const isWatchlist = await checkIfInWatchlist(id)
+    // const isWatched = await checkIfWatched(id)
+    // res.render("film", {
+    //   check: session.isLoggedIn,
+    //   username: session.username,
+    //   email: session.email,
+    //   data: movieData,
+    //   cast: cast,
+    //   watchProviders: watch.results.IN,
+    //   reviews: reviews,
+    //   errorReview: "",
+    // isFavourite: isFavourite,
+    // similar: similar,
+    // isWatched: isWatched,
+    // isWatchlist: isWatchlist
+    // });
+    // return;
   }
 
   if (existingReview) {
-    const id = req.params.id
-    const movieData = await getMovieById(id);
-    const cast = await getMovieCredits(id);
-    const watch = await getWatchProviders(id);
-    const isFavourite = await checkIfFavourite(id)
-    const reviews = await getReviews(id);
-    const similar = await getSimilarMovies(id);
-    const isWatchlist = await checkIfInWatchlist(id)
-    const isWatched = await checkIfWatched(id)
-    res.render("film", {
-      check: session.isLoggedIn,
-      username: session.username,
-      email: session.email,
-      data: movieData,
-      cast: cast,
-      watchProviders: watch.results.IN,
-      reviews: reviews,
-      errorReview: "You have already reviewed this movie!",
-      similar: similar,
-      isFavourite: isFavourite,
-      isWatched: isWatched,
-      isWatchlist: isWatchlist
-    });
-    return;
+    // const id = req.params.id
+    // const movieData = await getMovieById(id);
+    // const cast = await getMovieCredits(id);
+    // const watch = await getWatchProviders(id);
+    // const isFavourite = await checkIfFavourite(id)
+    // const reviews = await getReviews(id);
+    // const similar = await getSimilarMovies(id);
+    // const isWatchlist = await checkIfInWatchlist(id)
+    // const isWatched = await checkIfWatched(id)
+    // res.render("film", {
+    //   check: session.isLoggedIn,
+    //   username: session.username,
+    //   email: session.email,
+    //   data: movieData,
+    //   cast: cast,
+    //   watchProviders: watch.results.IN,
+    //   reviews: reviews,
+    //   errorReview: "You have already reviewed this movie!",
+    //   similar: similar,
+    //   isFavourite: isFavourite,
+    //   isWatched: isWatched,
+    //   isWatchlist: isWatchlist
+    // });
+    // return;
+    return res
+      .status(500)
+      .json({ error: "You have already posted a review!" })
   }
 
   const newReview = new Review({
@@ -86,32 +92,38 @@ const addReview = async (req, res) => {
     await newReview.save();
   } catch (err) {
     console.log(err);
-    const movieData = await getMovieById(req.params.id);
-    const cast = await getMovieCredits(req.params.id);
-    const watch = await getWatchProviders(req.params.id);
-    const reviews = await getReviews(req.params.id);
-    const isFavourite = await checkIfFavourite(id)
-    const similar = await getSimilarMovies(req.params.id);
-    const isWatchlist = await checkIfInWatchlist(id)
-    const isWatched = await checkIfWatched(id)
-    res.render("film", {
-      check: session.isLoggedIn,
-      username: session.username,
-      email: session.email,
-      data: movieData,
-      cast: cast,
-      watchProviders: watch.results.IN,
-      reviews: reviews,
-      errorReview: "",
-      similar: similar,
-      isFavourite: isFavourite,
-      isWatched: isWatched,
-      isWatchlist: isWatchlist
-    });
-    return;
+    // const movieData = await getMovieById(req.params.id);
+    // const cast = await getMovieCredits(req.params.id);
+    // const watch = await getWatchProviders(req.params.id);
+    // const reviews = await getReviews(req.params.id);
+    // const isFavourite = await checkIfFavourite(id)
+    // const similar = await getSimilarMovies(req.params.id);
+    // const isWatchlist = await checkIfInWatchlist(id)
+    // const isWatched = await checkIfWatched(id)
+    // res.render("film", {
+    //   check: session.isLoggedIn,
+    //   username: session.username,
+    //   email: session.email,
+    //   data: movieData,
+    //   cast: cast,
+    //   watchProviders: watch.results.IN,
+    //   reviews: reviews,
+    //   errorReview: "",
+    //   similar: similar,
+    //   isFavourite: isFavourite,
+    //   isWatched: isWatched,
+    //   isWatchlist: isWatchlist
+    // });
+    // return;
+    return res
+      .status(500)
+      .json({ error: "Internal server error!" })
   }
 
-  res.redirect("/film/" + movie);
+  // res.redirect("/film/" + movie);
+  return res
+    .status(200)
+    .json({ message: "Review added successfully!" })
 };
 
 module.exports = addReview;

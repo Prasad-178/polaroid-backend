@@ -64,10 +64,7 @@ router.get("/lists", async (req, res) => {
   });
 });
 
-router.get("/booking/:id/getAvl", (req, res) => {
-  const movieAvl = getMovieAvailability(req.params.id)
-  res.json(movieAvl)
-})
+router.get("/booking/:id/getAvl", getMovieAvailability)
 
 router.get("/booking/:venue/:id/:movieTiming", async (req, res) => {
   const venue = req.params.venue
@@ -141,47 +138,17 @@ router.get('/watchedfilms/:username', async (req, res) => {
   })
 })
 
-router.get('/addtowatchlist/:id', async (req, res) => {
-  let id = req.params.id
+router.get('/addtowatchlist/:id', addToWatchlist)
 
-  await addToWatchlist(id)
-  res.redirect('/film/'+id)
-})
+router.get('/removefromwatchlist/:id', removeFromWatchlist)
 
-router.get('/removefromwatchlist/:id', async (req, res) => {
-  let id = req.params.id
+router.get('/addtofavs/:id', addToFavourites)
 
-  await removeFromWatchlist(id)
-  res.redirect('/film/'+id)
-})
+router.get('/removefromfavs/:id', removeFromFavourites)
 
-router.get('/addtofavs/:id', async (req, res) => {
-  let id = req.params.id
+router.get('/addtowatched/:id', addToWatched)
 
-  await addToFavourites(id)
-  res.redirect('/film/'+id)
-})
-
-router.get('/removefromfavs/:id', async (req, res) => {
-  let id = req.params.id
-
-  await removeFromFavourites(id)
-  res.redirect('/film/'+id)
-})
-
-router.get('/addtowatched/:id', async (req, res) => {
-  let id = req.params.id
-
-  await addToWatched(id)
-  res.redirect('/film/'+id)
-})
-
-router.get('/removefromwatched/:id', async (req, res) => {
-  let id = req.params.id
-
-  await removeFromWatched(id)
-  res.redirect('/film/'+id)
-})
+router.get('/removefromwatched/:id', removeFromWatched)
 
 router.get('/lists/:username', async (req, res) => {
   let username = req.params.username
@@ -216,28 +183,11 @@ router.get("/list/:username/:listName", async (req, res) => {
   });
 });
 
-router.get("/payment/success", (req, res) => {
-  res.render("success");
-});
+router.post('/confirmticket', addBooking)
 
-router.get("/payment/failure", (req, res) => {
-  res.render("505");
-});
+router.get('/retrieveseats/:id/:timing/:venue', getSeats)
 
-router.post('/confirmticket', async (req, res) => {
-  await addBooking(req, res)
-})
-
-router.get('/retrieveseats/:id/:timing/:venue', async (req, res) => {
-  const {id, venue, timing} = req.params
-  const data = await getSeats(id, timing, venue)
-  res.json(data)
-})
-
-router.get('/retrievebookingdetails/:id', async (req, res) => {
-  const movieAvl = await getMovieAvailability(req.params.id)
-  res.json(movieAvl)
-})
+router.get('/retrievebookingdetails/:id', getMovieAvailability)
 
 router.get("/bookingdetails/:id", async (req, res) => {
   // if (req.params.id == 597) {
@@ -513,10 +463,6 @@ router.get("/about", (req, res) => {
   });
 });
 
-router.get('/networkerror', (req, res) => {
-  res.render('505')
-})
-
 router.get('/profile/:name', async (req, res) => {
   const name = req.params.name.split("%20").join(" ")
   if (name == session.username) {
@@ -557,9 +503,9 @@ router.get("/films", async (req, res) => {
   });
 });
 
-router.post("/booking", (req, res) => {
-  res.redirect("/payment");
-});
+// router.post("/booking", (req, res) => {
+//   res.redirect("/payment");
+// });
 
 router.get("/film/:id", async (req, res) => {
   const id = req.params.id

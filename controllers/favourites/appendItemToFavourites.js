@@ -2,13 +2,16 @@ const getMovieById = require("../../api/getMovieById")
 const user = require("../../models/user")
 const session = require("../../session/session")
 
-const addToFavourites = async (item) => {
+const addToFavourites = async (req, res) => {
+    const item = req.params.id
     let existingUser
     try {
         existingUser = await user.findOne({ email: session.email }).exec()
     } catch (err) {
         console.log(err)
-        return
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
     for (let i=0; i<existingUser.favourites.length; i++) {
@@ -17,7 +20,9 @@ const addToFavourites = async (item) => {
 
     if (existingUser.favourites.length >= 5) {
         console.log("Favourites list is full, cannot add any more items!")
-        return
+        return res
+            .status(401)
+            .json({ error: "Favourites list is full, cannot add any more items!" })
     }
 
     const movieData = await getMovieById(item)
@@ -30,10 +35,14 @@ const addToFavourites = async (item) => {
         await existingUser.save()
     } catch (err) {
         console.log(err)
-        return
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
-    return
+    return res
+        .status(200)
+        .json({ message: "Added item to favourites successfully!" })
 }
 
 module.exports = addToFavourites

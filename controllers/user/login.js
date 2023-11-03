@@ -58,9 +58,7 @@ const login = async (req, res) => {
     session.username = existingUser.username
     return res
         .status(200)
-        .json({
-            message: "Logged in successfully!"
-        });
+        .json(existingUser);
 }
 
 module.exports = login

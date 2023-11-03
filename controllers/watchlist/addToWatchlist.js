@@ -2,22 +2,30 @@ const getMovieById = require("../../api/getMovieById")
 const user = require("../../models/user")
 const session = require("../../session/session")
 
-const addToWatchlist = async (item) => {
+const addToWatchlist = async (req, res) => {
+    const item = req.params.id
     let existingUser
     try {
         existingUser = await user.findOne({ email: session.email }).exec()
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
     if (!existingUser) {
         console.log("No such user exists!")
-        return
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
     for (let i=0; i<existingUser.planToWatch.length; i++) {
         if (existingUser.planToWatch[i].id === item) {
-            return
+            return res
+                .status(403)
+                .json({ error: "Item already present in watchlist!" })
         }
     }
 
@@ -31,9 +39,14 @@ const addToWatchlist = async (item) => {
         await existingUser.save()
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({ error: "Internal server error!" })
     }
 
-    return
+    return res
+        .status(200)
+        .json({ message: "Added item to watchlist successfully!" })
 }
 
 module.exports = addToWatchlist

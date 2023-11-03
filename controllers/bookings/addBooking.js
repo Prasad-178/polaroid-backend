@@ -14,6 +14,9 @@ const addBooking = async (req, res) => {
         theatre = await Theatre.findOne({ location: venue }).exec()
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({error: "Internal server error!"})
     }
     // console.log(theatre, typeof theatre, theatre.length)
 
@@ -54,6 +57,9 @@ const addBooking = async (req, res) => {
         await Theatre.findOneAndUpdate({ location: venue }, theatre)
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({error: "Internal server error!"})
     }
 
     const html = 
@@ -84,7 +90,9 @@ const addBooking = async (req, res) => {
     transporter.sendMail(mailOptions, (err, success) => {
         if (err) {
             console.log(err)
-            return
+            return res
+                .status(500)
+                .json({error: "Internal server error!"})
         }
         else {
             // console.log("Success, email has been sent.")
@@ -108,8 +116,15 @@ const addBooking = async (req, res) => {
             await newBooking.save()
         } catch (err) {
             console.log(err)
+            return res
+                .status(500)
+                .json({error: "Internal server error!"})
         }
     }
+
+    return res
+        .status(200)
+        .json({message: "Ticket booked successfully!"})
 }
 
 module.exports = addBooking

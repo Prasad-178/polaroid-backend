@@ -1,18 +1,24 @@
 const User = require("../../models/user")
 const session = require("../../session/session")
 
-const removeFromWatched = async (item) => {
+const removeFromWatched = async (req, res) => {
+    const item = req.params.id
     let existingUser
     try {
         existingUser = await User.findOne({ email: session.email }).exec()
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({error: "Internal server error!"})
     }
 
     console.log(existingUser)
     if (!existingUser) {
         console.log("No such user exists!")
-        return
+        return res
+            .status(404)
+            .json({ error: "No such user exists!" })
     }
 
     console.log(existingUser.watched[0].id, item)
@@ -25,9 +31,14 @@ const removeFromWatched = async (item) => {
     } catch (err) {
         console.log("hi")
         console.log(err)
+        return res
+            .status(500)
+            .json({error: "Internal server error!"})
     }
 
-    return
+    return res
+        .status(200)
+        .json({message: "Removed film from watched successfully!"})
 }
 
 module.exports = removeFromWatched

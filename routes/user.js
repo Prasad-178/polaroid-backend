@@ -24,26 +24,26 @@ const router = Router();
 
 router.get('/check', userDetails)
 
-router.get("/login", (req, res) => {
-  res.render("login", { error: "" });
-});
+// router.get("/login", (req, res) => {
+//   res.render("login", { error: "" });
+// });
 
-router.get("/register", (req, res) => {
-  res.render("register", { error: "" });
-});
+// router.get("/register", (req, res) => {
+//   res.render("register", { error: "" });
+// });
 
-router.get('/forgotpassword', (req, res) => {
-  res.render('forgot_password_1', {
-    error: ""
-  })
-})
+// router.get('/forgotpassword', (req, res) => {
+//   res.render('forgot_password_1', {
+//     error: ""
+//   })
+// })
 
-router.get('/resetpassword', (req, res) => {
-  res.render('forgot_password_2', {
-    error: "",
-    email: ""
-  })
-})
+// router.get('/resetpassword', (req, res) => {
+//   res.render('forgot_password_2', {
+//     error: "",
+//     email: ""
+//   })
+// })
 
 router.post('/forgotpassword', forgotPasswordOTP)
 
