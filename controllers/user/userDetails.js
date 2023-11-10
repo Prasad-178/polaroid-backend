@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken')
-const user = require('../../models/user')
+const User = require("../../models/user")
+const variables = require('../../config')
 
 const userDetails = async (req, res) => {
 
     let userDetails
     const cookies = req.headers.cookie
-    const token = req.cookies.JWT_HTTPONLY_Cookie
+    const token = req.cookies.authToken
 
     if (!token) {
         return res
@@ -13,24 +14,24 @@ const userDetails = async (req, res) => {
         .json({ status: false })
     }
 
-    jwt.verify(token, String(process.env.JWT_SECRET_KEY), async (err, user) => {
+    jwt.verify(token, String(variables.jwt_secret), async (err, user) => {
         if (err) {
-            // console.log("error in verifying token!!")
-            res
-            .status(400)
-            .json({ status: false, token: "Cannot verify token!" })
+            console.log("error in verifying token!!")
+            return res
+                .status(400)
+                .json({ status: false, token: "Cannot verify token!" })
         }
 
         let currentUser
         try {
-            currentUser = await User.findOne({ _id: user.id }).exec()
+            currentUser = await User.findOne({ _id: user._id }).exec()
         } catch (err) {
             console.log(err)
         }
 
         return res
-        .status(200)
-        .json(currentUser)
+            .status(200)
+            .json(currentUser)
     })
 }
 
