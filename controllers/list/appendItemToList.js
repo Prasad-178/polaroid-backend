@@ -2,23 +2,31 @@ const getMovieById = require('../../api/getMovieById')
 const List = require('../../models/list')
 const session = require('../../session/session')
 
-const appendToList = async (listName, listItem) => {
+const appendToList = async (req, res) => {
+    const {listItem, listName} = req.params
 
     let existingList
     try {
         existingList = await List.findOne({ listName: listName, createdBy: session.username }).exec()
     } catch (err) {
         console.log(err)
+        return res
+            .status(500)
+            .json({error: "Internal server error!"})
     }
 
     if (!existingList) {
         console.log("No such list exists!")
-        return
+        return res
+            .status(404)
+            .json({error: "No such list exists!"})
     }
 
     for (let i=0; i<existingList.items.length; i++) {
         if (existingList.items[i].id === listItem) {
-            return
+            return res
+                .status(200)
+                .json({ message: "Movie is already in list!" })
         }
     }
 
@@ -36,10 +44,14 @@ const appendToList = async (listName, listItem) => {
         existingList.save() 
     } catch (err) {
         console.log(err)
-        return
+        return res
+            .status(500)
+            .json({error: "Internal server error!"})
     }
 
-    return
+    return res
+        .status(200)
+        .json({message: "Movie added to list successfully!"})
 }
 
 module.exports = appendToList

@@ -138,17 +138,17 @@ router.get('/watchedfilms/:username', async (req, res) => {
   })
 })
 
-router.get('/addtowatchlist/:id', addToWatchlist)
+router.post('/addtowatchlist/:id', addToWatchlist)
 
-router.get('/removefromwatchlist/:id', removeFromWatchlist)
+router.post('/removefromwatchlist/:id', removeFromWatchlist)
 
-router.get('/addtofavs/:id', addToFavourites)
+router.post('/addtofavs/:id', addToFavourites)
 
-router.get('/removefromfavs/:id', removeFromFavourites)
+router.post('/removefromfavs/:id', removeFromFavourites)
 
-router.get('/addtowatched/:id', addToWatched)
+router.post('/addtowatched/:id', addToWatched)
 
-router.get('/removefromwatched/:id', removeFromWatched)
+router.post('/removefromwatched/:id', removeFromWatched)
 
 router.get('/lists/:username', async (req, res) => {
   let username = req.params.username
@@ -507,6 +507,16 @@ router.get("/films", async (req, res) => {
 //   res.redirect("/payment");
 // });
 
+router.get("/filmreviews/:id", getReviews)
+
+router.post("/checkiffav/:id", checkIfFavourite)
+
+router.post("/checkifinwatchlist/:id", checkIfInWatchlist)
+
+router.post("/checkifwatched/:id", checkIfWatched)
+
+router.post("/getmylists", getMyLists)
+
 router.get("/film/:id", async (req, res) => {
   const id = req.params.id
   const movieData = await getMovieById(id);
@@ -535,6 +545,8 @@ router.get("/film/:id", async (req, res) => {
     isWatchlist: isWatchlist
   });
 });
+
+router.get("/list/add/:listName/:listItem", appendToList)
 
 router.get("/list/add/:listName/:id", async (req, res) => {
   let listName = req.params.listName

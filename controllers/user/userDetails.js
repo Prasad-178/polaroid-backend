@@ -10,8 +10,8 @@ const userDetails = async (req, res) => {
 
     if (!token) {
         return res
-        .status(404)
-        .json({ status: false })
+            .status(404)
+            .json({ status: false })
     }
 
     jwt.verify(token, String(variables.jwt_secret), async (err, user) => {
@@ -27,6 +27,9 @@ const userDetails = async (req, res) => {
             currentUser = await User.findOne({ _id: user._id }).exec()
         } catch (err) {
             console.log(err)
+            return res
+                .status(500)
+                .json({error: "Internal server error!"})
         }
 
         return res

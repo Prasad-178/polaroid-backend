@@ -3,9 +3,10 @@ const session = require("../../session/session")
 
 const removeFromWatched = async (req, res) => {
     const item = req.params.id
+    const {email} = req.body
     let existingUser
     try {
-        existingUser = await User.findOne({ email: session.email }).exec()
+        existingUser = await User.findOne({ email: email }).exec()
     } catch (err) {
         console.log(err)
         return res

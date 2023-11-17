@@ -1,15 +1,18 @@
 const List = require("../../models/list")
 const session = require("../../session/session")
 
-const getMyLists = async () => {
+const getMyLists = async (req, res) => {
+    const {username} = req.body
     let lists
     try {
-        lists = await List.find({ createdBy: session.username }).exec()
+        lists = await List.find({ createdBy: username }).exec()
     } catch (err) {
         console.log(err)
     }
 
-    return lists
+    return res
+        .status(200)
+        .json(lists)
 }
 
 module.exports = getMyLists
