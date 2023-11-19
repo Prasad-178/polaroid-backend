@@ -5,9 +5,14 @@ const logout = async (req, res) => {
     session.email = ""
     session.username = ""
 
+    req.id = ""
+    req.status = ""
+
     res.clearCookie('authToken')
 
-    res.status(200).redirect('/user/login')
+    return res
+        .status(200)
+        .json({message: "Logged out successfully!"})
 }
 
 module.exports = logout

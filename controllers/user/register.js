@@ -69,9 +69,9 @@ const register = async (req, res) => {
             .json({ error: "A user with this username already exists!" })
     }
 
-    res
-    .status(200)
-    .redirect('/user/login')
+    return res
+        .status(200)
+        .json({message: "Registered successfully!"})
 }
 
 module.exports = register

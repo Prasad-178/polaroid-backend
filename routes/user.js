@@ -24,6 +24,8 @@ const router = Router();
 
 router.get('/check', userDetails)
 
+router.post('/getuser', getUser)
+
 // router.get("/login", (req, res) => {
 //   res.render("login", { error: "" });
 // });
