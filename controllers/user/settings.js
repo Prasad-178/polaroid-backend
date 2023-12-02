@@ -1,6 +1,5 @@
 const User = require("../../models/user")
 const bcrypt = require("bcryptjs")
-const session = require("../../session/session")
 
 const settings = async (req, res) => {
   const { username, originalPassword, newPassword, email } = req.body
@@ -14,7 +13,6 @@ const settings = async (req, res) => {
         .status(500)
         .json({error: "Internal server error!"})
   }
-  console.log(existingUser)
 
   let checkUsername 
   try {
