@@ -3,10 +3,11 @@ const List = require('../../models/list')
 const session = require('../../session/session')
 
 const getUser = async (req, res) => {
+    console.log(req.body)
     const { username } = req.body
     let user
     try {
-        user = await User.findOne({ username: session.username }).exec()
+        user = await User.findOne({ username: username }).exec()
     } catch (err) {
         console.log(err)
         return res
