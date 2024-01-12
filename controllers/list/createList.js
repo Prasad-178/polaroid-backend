@@ -10,8 +10,6 @@ const createList = async (req, res) => {
     try {
         existingList = await List.findOne({ createdBy: createdBy, listName: listName }).exec()
     } catch (err) {
-        // console.log(err)
-        // return
         return res  
             .status(500)
             .json({ 
@@ -20,8 +18,6 @@ const createList = async (req, res) => {
     }
 
     if (existingList) {
-        // console.log("A list with this name already exists")
-        // return
         return res  
             .status(401)
             .json({ 
@@ -40,8 +36,6 @@ const createList = async (req, res) => {
     try {
         await newList.save()
     } catch (err) {
-        // console.log(err)
-        // return
         return res  
             .status(500)
             .json({ 
@@ -49,7 +43,6 @@ const createList = async (req, res) => {
              })
     }
 
-    // res.redirect('/user/list')
     return res  
             .status(200)
             .json({ 

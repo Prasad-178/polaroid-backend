@@ -1,6 +1,6 @@
 const List = require('../../models/list')
 
-const getRecentLists = async () => {
+const getRecentLists = async (req, res) => {
     let lists
     try {
         lists = await List.find({  }).limit(10).exec()
@@ -8,7 +8,9 @@ const getRecentLists = async () => {
         console.log(err)
     }
 
-    return lists
+    return res  
+        .status(200)
+        .json(lists)
 }
 
 module.exports = getRecentLists
