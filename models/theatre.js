@@ -33,7 +33,8 @@ const theatreSchema = new schema({
           }
         }]
       }
-    ]
+    ],
+    required: false
   }
 }, {versionKey: false})
 

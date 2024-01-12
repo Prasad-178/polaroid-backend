@@ -1,14 +1,19 @@
 const User = require('../../models/user')
-const session = require('../../session/session')
 
 const deleteAccount = async (req, res) => {
-  try {
-    await User.findOneAndDelete({ email: session.email }).exec()
-  } catch (err) {
-    console.log(err)
-  }
+    const { email } = req.body
+    try {
+        await User.findOneAndDelete({ email: email }).exec()
+    } catch (err) {
+        console.log(err)
+        return res
+            .status(500)
+            .json({ error: "Internal error occurred!" })
+    }
 
-  res.redirect('/user/register')
+    return res
+        .status(200)
+        .json({ message: "Account deleted successfully!" })
 }
 
 module.exports = deleteAccount
