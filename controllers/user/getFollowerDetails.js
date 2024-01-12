@@ -10,6 +10,12 @@ const getFollowerDetails = async (req, res) => {
         console.log(err)
     }
 
+    if (!existingUser) {
+        return res  
+            .status(404)
+            .json({ error: "No such user exists!" })
+    }
+
     let followerIDs = []
     for (let i=0; i<existingUser.followers.length; i++) {
         followerIDs.push(existingUser.followers[i])

@@ -81,18 +81,7 @@ router.get("/booking/:venue/:id/:movieTiming", async (req, res) => {
   });
 });
 
-router.get('/followers/:username', async (req, res) => {
-  let id = req.params.username
-  id = id.split("%20").join(" ")
-  const data = await getFollowerDetails(id)
-  res.render('follower', {
-    check: true,
-    username: session.username,
-    email: session.email,
-    data: data,
-    id: id
-  })
-})
+router.get('/followers/:username', getFollowerDetails)
 
 router.get('/following/:username', async (req, res) => {
   let id = req.params.username
