@@ -170,7 +170,7 @@ router.post('/watched/:id', async (req, res) => {
   res.redirect("/user/watchedfilms")
 })
 
-router.get("/list", getMyLists)
+router.post("/list", getMyLists)
 
 router.post("/list/delete/:listName", async (req, res) => {
   let listName = req.params.listName;
