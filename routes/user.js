@@ -170,16 +170,7 @@ router.post('/watched/:id', async (req, res) => {
   res.redirect("/user/watchedfilms")
 })
 
-router.get("/list", async (req, res) => {
-  const lists = await getMyLists();
-  res.render("user_list", {
-    check: true,
-    username: session.username,
-    email: session.email,
-    lists: lists,
-    errorCreation: "",
-  });
-});
+router.get("/list", getMyLists)
 
 router.post("/list/delete/:listName", async (req, res) => {
   let listName = req.params.listName;
