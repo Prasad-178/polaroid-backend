@@ -83,19 +83,7 @@ router.get("/booking/:venue/:id/:movieTiming", async (req, res) => {
 
 router.get('/followers/:username', getFollowerDetails)
 
-router.get('/following/:username', async (req, res) => {
-  let id = req.params.username
-  id = id.split("%20").join(" ")
-  const data = await getFollowingDetails(id)
-  // console.log(id, data)
-  res.render('following', {
-    check: true,
-    username: session.username,
-    email: session.email,
-    data: data,
-    id: id
-  })
-})
+router.get('/following/:username', getFollowingDetails)
 
 router.get('/watchlist/:username', async (req, res) => {
   let username = req.params.username
@@ -107,7 +95,7 @@ router.get('/watchlist/:username', async (req, res) => {
     username: session.username,
     email: session.email,
     data: user.user.planToWatch,
-    userWatchList:  username,
+    userWatchList: username,
     editable: false
   })
 })
@@ -156,7 +144,7 @@ router.get('/lists/:username', async (req, res) => {
 router.get("/list/:username/:listName", async (req, res) => {
   let username = req.params.username
   let listName = req.params.listName;
-  listName = listName.split("%20").join(" ") ;
+  listName = listName.split("%20").join(" ");
 
   const list = await getList(username, listName);
   res.render("list_page", {
@@ -346,11 +334,11 @@ router.post("/payment", async (req, res) => {
     const movieName = movie.title
     // console.log("items is : ", req.body)
     let seat_string = ""
-    for (let i=0; i<req.body.seat_list.length; i++) {
-      let second = +req.body.seat_list[i]%10
+    for (let i = 0; i < req.body.seat_list.length; i++) {
+      let second = +req.body.seat_list[i] % 10
       second++
-      let first = (Math.floor(req.body.seat_list[i]/10))%10
-      first = String.fromCharCode(65+first)
+      let first = (Math.floor(req.body.seat_list[i] / 10)) % 10
+      first = String.fromCharCode(65 + first)
 
       // console.log(first, second)
 
@@ -359,32 +347,32 @@ router.post("/payment", async (req, res) => {
       seat_string += final_seat + ", "
     }
 
-    seat_string = seat_string.slice(0, seat_string.length-2)
+    seat_string = seat_string.slice(0, seat_string.length - 2)
     const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        mode:'payment',
-        line_items: [
-          {
-            price_data: {
-              currency: 'inr',
-              product_data: {
-                name: movieName + " at " + req.body.venue.trim(),
-                description: "Seat List : " + seat_string
-              },
-              unit_amount: 100*300
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: [
+        {
+          price_data: {
+            currency: 'inr',
+            product_data: {
+              name: movieName + " at " + req.body.venue.trim(),
+              description: "Seat List : " + seat_string
             },
-            quantity: req.body.seat_list.length
-          }
-        ],
-        success_url: 'http://localhost:3500/payment/success',
-        cancel_url: 'http://localhost:3500/payment/failure'
+            unit_amount: 100 * 300
+          },
+          quantity: req.body.seat_list.length
+        }
+      ],
+      success_url: 'http://localhost:3500/payment/success',
+      cancel_url: 'http://localhost:3500/payment/failure'
     })
 
-    res.json({url:session.url})
-} catch (e) {
+    res.json({ url: session.url })
+  } catch (e) {
     console.log(e);
-    res.status(500).json({error:e.message})
-}
+    res.status(500).json({ error: e.message })
+  }
 });
 
 router.get("/trending/week", async (req, res) => {
@@ -518,7 +506,7 @@ router.get("/film/:id", async (req, res) => {
   const isWatched = await checkIfWatched(id)
   if (session.username === "") lists = []
   else lists = await getMyLists()
-    res.render("film", {
+  res.render("film", {
     check: session.isLoggedIn,
     username: session.username,
     email: session.email,
@@ -543,7 +531,7 @@ router.get("/list/add/:listName/:id", async (req, res) => {
   const id = req.params.id
   const result = await appendToList(listName, id)
 
-  res.redirect('/user/list/'+listName)
+  res.redirect('/user/list/' + listName)
 })
 
 router.post("/film/:id", addReview)
