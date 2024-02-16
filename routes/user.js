@@ -102,7 +102,7 @@ router.get("/profile", async (req, res) => {
 
 router.get("/list/:listName", async (req, res) => {
   let listName = req.params.listName;
-  listName.split("%20").join(" ") ;
+  listName.split("%20").join(" ");
 
   const list = await getMyListByName(listName);
   res.render("list_page", {
@@ -128,7 +128,7 @@ router.post("/delete/list/:listName/:filmname", async (req, res) => {
 
   // console.log(listName+ " " + filmName)
 
-  res.redirect("/user/list/"+listName)
+  res.redirect("/user/list/" + listName)
 })
 
 router.get("/watchlist", async (req, res) => {
@@ -172,15 +172,9 @@ router.post('/watched/:id', async (req, res) => {
 
 router.post("/list", getMyLists)
 
-router.post("/list/delete/:listName", async (req, res) => {
-  let listName = req.params.listName;
-  listName.split("%20").join(" ") ;
-  await deleteList(listName);
+router.post("/list/delete", deleteList);
 
-  res.redirect("/user/list");
-});
-
-router.post("/list", createList);
+router.post("/createlist", createList);
 
 router.get("/logout", logout);
 
