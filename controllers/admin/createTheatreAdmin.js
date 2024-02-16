@@ -1,5 +1,6 @@
 const theatre = require("../../models/theatre")
 const theatreAdmin = require("../../models/theatreAdmin")
+const bcrypt = require('bcryptjs')
 
 const createTheatreAdmin = async (req, res) => {
     const { username, password } = req.body

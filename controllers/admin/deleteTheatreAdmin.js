@@ -1,11 +1,11 @@
 const theatreAdmin = require("../../models/theatreAdmin")
 
-const deleteUser = async (req, res) => {
+const deleteTheatreAdmin = async (req, res) => {
     const { username } = req.body
 
-    let delUser
+    let delTheatreAdmin
     try {
-        delUser = await theatreAdmin.deleteOne({ username: username }).exec()
+        delTheatreAdmin = await theatreAdmin.deleteOne({ username: username }).exec()
     } catch (err) {
         console.log(err)
         return res
@@ -18,4 +18,4 @@ const deleteUser = async (req, res) => {
         .json({ message: "Theatre admin deleted successfully!" })
 }
 
-module.exports = deleteUser
+module.exports = deleteTheatreAdmin

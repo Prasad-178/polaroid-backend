@@ -1,9 +1,9 @@
 const theatreAdmin = require("../../models/theatreAdmin")
 
-const showUsers = async (req, res) => {
-    let users
+const showTheatreAdmins = async (req, res) => {
+    let theatreAdmins
     try {
-        users = await theatreAdmin.find({}).exec()
+        theatreAdmins = await theatreAdmin.find({}).exec()
     } catch (err) {
         console.log(err)
         return res
@@ -13,7 +13,7 @@ const showUsers = async (req, res) => {
 
     return res
         .status(200)
-        .json(users)
+        .json(theatreAdmins)
 }
 
-module.exports = showUsers
+module.exports = showTheatreAdmins

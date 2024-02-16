@@ -3,7 +3,7 @@ const List = require('../../models/list')
 const session = require('../../session/session')
 
 const appendToList = async (req, res) => {
-    const {listItem, listName} = req.params
+    const {listItem, listName} = req.body
 
     let existingList
     try {
