@@ -5,6 +5,8 @@ const deleteList = async (req, res) => {
 
     const { username, listName } = req.body
 
+    console.log(listName)
+
     let existingList
     try {
         existingList = await list.findOne({ createdBy: username, listName: listName }).exec()
@@ -17,11 +19,11 @@ const deleteList = async (req, res) => {
 
     if (!existingList) {
         console.log("No such list exists!")
-        return res  
+        return res
             .status(404)
             .json({ error: "No such list exists!" })
     }
-    
+
     try {
         await existingList.delete()
     } catch (err) {
