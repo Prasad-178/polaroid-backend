@@ -5,6 +5,9 @@ const session = require("../../session/session")
 const addToWatched = async (req, res) => {
     const item = req.params.id
     const {email} = req.body
+
+    console.log(item, email)
+
     let existingUser
     try {
         existingUser = await user.findOne({ email: email }).exec()
@@ -27,6 +30,14 @@ const addToWatched = async (req, res) => {
     }
 
     const movieData = await getMovieById(item)
+    console.log(movieData)
+    if (movieData == undefined) {
+        console.log('undefined movie data')
+        return res
+            .status(500)
+            .json({error: "Some internal error occurred!"})
+    }
+    
     existingUser.watched.push({
         id: item,
         poster_path: movieData.poster_path

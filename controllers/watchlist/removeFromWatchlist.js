@@ -1,9 +1,13 @@
 const user = require("../../models/user")
-const session = require("../../session/session")
 
 const removeFromWatchlist = async (req, res) => {
     const item = req.params.id
     const {email} = req.body
+
+    console.log(req.body)
+
+    console.log(email, item)
+
     let existingUser
     try {
         existingUser = await user.findOne({ email: email }).exec()

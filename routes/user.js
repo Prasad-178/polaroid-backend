@@ -26,27 +26,6 @@ router.get('/check', userDetails)
 
 router.post('/getuser', getUser)
 
-// router.get("/login", (req, res) => {
-//   res.render("login", { error: "" });
-// });
-
-// router.get("/register", (req, res) => {
-//   res.render("register", { error: "" });
-// });
-
-// router.get('/forgotpassword', (req, res) => {
-//   res.render('forgot_password_1', {
-//     error: ""
-//   })
-// })
-
-// router.get('/resetpassword', (req, res) => {
-//   res.render('forgot_password_2', {
-//     error: "",
-//     email: ""
-//   })
-// })
-
 router.post('/forgotpassword', forgotPasswordOTP)
 
 router.post('/resetpassword', resetPassword)
@@ -61,114 +40,15 @@ router.post("/createlist", createList);
 
 router.post("/addtolist", appendToList);
 
-router.get("/settings", (req, res) => {
-  if (!session.isLoggedIn) {
-    res.redirect("/user/login");
-    return;
-  }
-  res.render("settings", {
-    check: session.isLoggedIn,
-    username: session.username,
-    email: session.email,
-    data: {
-      success: false,
-      successMessage: "",
-      error: ""
-    }
-  });
-});
+router.post('/settings', settings)
 
-router.post('/settings', async (req, res) => {
-  const data = await settings(req, res)
-  res.render("settings", {
-    check: session.isLoggedIn,
-    username: session.username,
-    email: session.email,
-    data: data
-  })
-})
+router.post("/list/:listName", getMyListByName);
 
-router.get("/profile", async (req, res) => {
-  const user = await getUser();
-  res.render("profile", {
-    check: session.isLoggedIn,
-    username: session.username,
-    email: session.email,
-    currentUser: true,
-    data: user.user,
-    listLength: user.lists
-  });
-});
+router.post("/delete/list/:listName/:filmname", deleteItemFromList)
 
-router.get("/list/:listName", async (req, res) => {
-  let listName = req.params.listName;
-  listName.split("%20").join(" ");
+router.post('/watchlistdelete/:id', removeFromWatchlist)
 
-  const list = await getMyListByName(listName);
-  res.render("list_page", {
-    check: session.isLoggedIn,
-    username: session.username,
-    email: session.email,
-    data: list,
-    heading: "CREATED BY " + session.username,
-    time: "Created On " + list.createdAt.slice(0, 15),
-    isTrending: false,
-    listHeading: list.listName,
-    editable: true
-  });
-});
-
-router.post("/delete/list/:listName/:filmname", async (req, res) => {
-  // console.log("delete trigger")
-
-  var listName = req.params.listName.split("%20").join(" ")
-  var filmName = req.params.filmname
-
-  await deleteItemFromList(listName, filmName)
-
-  // console.log(listName+ " " + filmName)
-
-  res.redirect("/user/list/" + listName)
-})
-
-router.get("/watchlist", async (req, res) => {
-  const user = await getUser()
-  // console.log(user)
-  res.render("watchlist", {
-    check: true,
-    username: session.username,
-    email: session.email,
-    data: user.user.planToWatch,
-    userWatchList: session.username,
-    editable: true
-  });
-});
-
-router.get("/watchedfilms", async (req, res) => {
-  const user = await getUser()
-  // console.log(user)
-  // console.log("wae is : ", typeof user.watched)
-  res.render("watched_films", {
-    check: true,
-    username: session.username,
-    email: session.email,
-    data: user.user.watched,
-    userWatchList: session.username,
-    editable: true
-  });
-});
-
-router.post('/watchlist/:id', async (req, res) => {
-  const id = req.params.id
-  await removeFromWatchlist(id)
-  res.redirect("/user/watchlist")
-})
-
-router.post('/watched/:id', async (req, res) => {
-  const id = req.params.id
-  await removeFromWatched(id)
-  res.redirect("/user/watchedfilms")
-})
+router.post('/watcheddelete/:id', removeFromWatched)
 
 router.post("/list", getMyLists)
 

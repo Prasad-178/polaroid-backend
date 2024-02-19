@@ -27,6 +27,14 @@ const addToFavourites = async (req, res) => {
     }
 
     const movieData = await getMovieById(item)
+    console.log(movieData)
+    if (movieData == undefined) {
+        console.log('undefined movie data')
+        return res
+            .status(500)
+            .json({error: "Some internal error occurred!"})
+    }
+    
     existingUser.favourites.push({
         id: item,
         poster_path: movieData.poster_path
