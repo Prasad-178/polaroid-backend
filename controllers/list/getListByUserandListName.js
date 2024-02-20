@@ -1,7 +1,8 @@
 const List = require("../../models/list")
 
 const getList = async (req, res) => {
-    const { username, listName } = req.body
+    const { username, listName } = req.params
+    console.log(username, listName)
     let list 
     try {
         list = await List.findOne({ createdBy: username, listName: listName }).exec()

@@ -44,7 +44,7 @@ router.post('/settings', settings)
 
 router.post("/list/:listName", getMyListByName);
 
-router.post("/delete/list/:listName/:filmname", deleteItemFromList)
+router.post("/delete/list", deleteItemFromList)
 
 router.post('/watchlistdelete/:id', removeFromWatchlist)
 

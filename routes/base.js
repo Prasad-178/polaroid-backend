@@ -54,15 +54,7 @@ router.get(
   }
 );
 
-router.get("/lists", async (req, res) => {
-  const lists = await getRecentLists()
-  res.render("lists", {
-    check: session.isLoggedIn,
-    username: session.username,
-    email: session.email,
-    lists: lists
-  });
-});
+router.get("/lists", getRecentLists);
 
 router.get("/booking/:id/getAvl", getMovieAvailability)
 
@@ -127,38 +119,9 @@ router.post('/addtowatched/:id', addToWatched)
 
 router.post('/removefromwatched/:id', removeFromWatched)
 
-router.get('/lists/:username', async (req, res) => {
-  let username = req.params.username
-  username = username.split("%20").join(" ")
+router.get('/lists/:username', getListsByUser)
 
-  const lists = await getListsByUser(username)
-  res.render('otherUser_list', {
-    check: session.isLoggedIn,
-    username: session.username,
-    email: session.email,
-    lists: lists,
-    usernameList: username
-  })
-})
-
-router.get("/list/:username/:listName", async (req, res) => {
-  let username = req.params.username
-  let listName = req.params.listName;
-  listName = listName.split("%20").join(" ");
-
-  const list = await getList(username, listName);
-  res.render("list_page", {
-    check: session.isLoggedIn,
-    username: session.username,
-    email: session.email,
-    data: list,
-    heading: "CREATED BY " + list.createdBy,
-    time: "Created On " + list.createdAt.slice(0, 15),
-    isTrending: false,
-    listHeading: list.listName,
-    editable: false
-  });
-});
+router.get('/list/:username/:listName', getList)
 
 router.post('/confirmticket', addBooking)
 
