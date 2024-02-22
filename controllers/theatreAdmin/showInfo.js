@@ -14,7 +14,7 @@ const showInfo = async (req, res) => {
     }
 
     let data = []
-    for (let i=0; i<tad.locations.length; i++) {
+    for (let i=0; i<tad?.locations?.length; i++) {
         let locData
         try {
             locData = await Theatre.findOne({ location: tad.locations[i] }).exec()

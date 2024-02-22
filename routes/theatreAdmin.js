@@ -14,10 +14,10 @@ router.post("/login", login)
 
 router.post("/addshow", addShow)
 
-router.delete('/location', deleteLocation)
+router.post('/location', deleteLocation)
 
-router.delete('/movie', deleteMovie)
+router.post('/movie', deleteMovie)
 
-router.delete('/show', deleteShow)
+router.post('/show', deleteShow)
 
 module.exports = router

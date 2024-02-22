@@ -1,4 +1,5 @@
 const theatre = require("../../models/theatre")
+const theatreAdmin = require("../../models/theatreAdmin")
 
 const defaultSeating = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -14,7 +15,7 @@ const defaultSeating = [
 ]
 
 const addShow = async (req, res) => {
-    const { location, movieName, timings } = req.body
+    const { adminName, location, movieName, timings } = req.body
 
     let movieLoc
     try {
@@ -102,6 +103,36 @@ const addShow = async (req, res) => {
             return res
                 .status(500)
                 .json({ error: "Internal error occurred!" })
+        }
+    }
+
+    let tAdmin
+    try {
+        tAdmin = await theatreAdmin.findOne({ username: adminName }).exec()
+    } catch (err) {
+        console.log(err)
+        return res
+            .status(500)
+            .json({error: "Some internal error occurred!"})
+    }
+
+    let present = false
+    for (let i=0; i<tAdmin.locations.length; i++) {
+        if (tAdmin.locations[i] === location) {
+            present = true
+            break
+        }
+    }
+
+    if (!present) {
+        tAdmin.locations.push(location)
+        try {
+            await tAdmin.save()
+        } catch (err) {
+            console.log(err)
+            return res
+                .status(500)
+                .json({error: "Internal error occurred!"})
         }
     }
 

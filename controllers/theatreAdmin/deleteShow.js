@@ -2,6 +2,7 @@ const Theatre = require("../../models/theatre")
 
 const deleteShow = async (req, res) => {
     const { location, movieName, timing } = req.body
+    console.log(req.body)
 
     let loc
     try {
@@ -13,10 +14,12 @@ const deleteShow = async (req, res) => {
             .json({ error: "Internal error occurred!" })
     }
 
-    for (let i=0; i<loc.movieInfo.length; i++) {
+    for (let i=0; i<loc?.movieInfo?.length; i++) {
+        console.log("inside movieInfo array")
         if (loc.movieInfo[i].movieName === movieName) {
+            console.log("found movie")
             loc.movieInfo[i].timings = loc.movieInfo[i].timings.filter((x) => {
-                return x !== timing
+                return x.timing !== timing
             })
         }
     }

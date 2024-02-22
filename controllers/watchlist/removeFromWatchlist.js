@@ -4,8 +4,6 @@ const removeFromWatchlist = async (req, res) => {
     const item = req.params.id
     const {email} = req.body
 
-    console.log(req.body)
-
     console.log(email, item)
 
     let existingUser
@@ -39,8 +37,8 @@ const removeFromWatchlist = async (req, res) => {
     }
 
     return res
-        .status(500)
-        .json({ error: "Internal server error!" })
+        .status(200)
+        .json({ message: "Removed from watchlist successfully!" })
 }
 
 module.exports = removeFromWatchlist
