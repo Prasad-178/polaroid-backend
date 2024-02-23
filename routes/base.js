@@ -23,6 +23,7 @@ const getFollowingDetails = require("../controllers/user/getFollowingDetails");
 const getMovieAvailability = require("../controllers/bookings/getMovieAvailability");
 const getSeats = require("../controllers/bookings/getSeats");
 const addBooking = require("../controllers/bookings/addBooking");
+const ongoingShows = require("../controllers/theatre/ongoingShows");
 
 router.get("/lists", getRecentLists);
 
@@ -31,6 +32,8 @@ router.get("/booking/:id/getAvl", getMovieAvailability)
 router.get('/followers/:username', getFollowerDetails)
 
 router.get('/following/:username', getFollowingDetails)
+
+router.get('/ongoingshows', ongoingShows)
 
 router.post('/addtowatchlist/:id', addToWatchlist)
 
