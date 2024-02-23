@@ -17,11 +17,7 @@ const ongoingShows = async (req, res) => {
       },
       {
         $group: {
-          _id: {
-            movieName: "$movieInfo.movieName",
-            location: '$location'
-          },
-          movieInfo: { $push: "$movieInfo" },
+          _id: "$movieInfo.movieName",
         },
       },
     ],
@@ -29,9 +25,10 @@ const ongoingShows = async (req, res) => {
       if (err) {
         console.error(err);
       } else {
+        const movieNames = result.map((entry) => entry._id);
         return res
             .status(200)
-            .json(result)
+            .json(movieNames)
       }
     }
   );
