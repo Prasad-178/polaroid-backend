@@ -25,7 +25,9 @@ const theatreSchema = new schema({
       {
         movieName: String,
         timings: [{
-          timing: String,
+          runDate: Date, // date of the show
+          startTiming: Date, // start time of the show
+          endTiming: Date, // end time of the show
           seating: {
             type: [[Number]],
             required: false,

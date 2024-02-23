@@ -25,7 +25,7 @@ const showInfo = async (req, res) => {
                 .json({ error: "Internal error occurred!" })
         }
 
-        data.push(locData)
+        if (locData != null) data.push(locData)
     }
 
     return res
