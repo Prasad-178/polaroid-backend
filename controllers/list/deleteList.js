@@ -3,9 +3,11 @@ const user = require("../../models/user")
 
 const deleteList = async (req, res) => {
 
-    const { username, listName } = req.body
+    console.log("hello...delete")
 
-    console.log(listName)
+    const { listName, username } = req.params
+
+    console.log(req.params)
 
     let existingList
     try {
@@ -25,7 +27,7 @@ const deleteList = async (req, res) => {
     }
 
     try {
-        await existingList.delete()
+        await existingList.deleteOne()
     } catch (err) {
         console.log(err)
         return res

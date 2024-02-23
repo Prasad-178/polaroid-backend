@@ -20,8 +20,6 @@ let accessLogStream = rfs.createStream((Date.now() / 1000) + 'access.log', {
 
 const app = express()
 
-app.use(morgan('tiny'))
-
 app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use(express.json({ limit: '50mb' }));
@@ -48,14 +46,14 @@ app.use('/theatreadmin', theatreAdminRouter)
 
 
 app.get('*', (req, res) => {
-    res.status(404).json({message: "not found"});
+    res.status(404).json({ message: "not found" });
 })
 
 app.use((err, req, res, next) => {
     console.log("hello")
     console.log(err)
     if (err) {
-        return res.status(505).json({error: err});
+        return res.status(505).json({ error: err });
     }
 
     next();

@@ -78,7 +78,7 @@ router.post('/watcheddelete/:id', removeFromWatched)
 
 router.post("/list", getMyLists)
 
-router.post("/list/delete", deleteList);
+router.delete("/list/delete/:listName/:username", deleteList);
 
 router.post("/createlist", createList);
 
