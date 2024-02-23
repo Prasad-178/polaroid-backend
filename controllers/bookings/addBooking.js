@@ -1,74 +1,74 @@
 const Theatre = require('../../models/theatre')
-const Booking = require('../../models/booking')
+const Ticket = require("../../models/ticket")
 const nodemailer = require('nodemailer')
 const variables = require('../../config')
 const getMovieById = require('../../api/getMovieById')
 
 const addBooking = async (req, res) => {
-    let {seat_list, venue, email, info_array, mobile, person_counter, movieTime, movieId} = req.body
-    const movieDetails = await getMovieById(movieId)
-    venue = venue.split("%20").join(" ").trim()
-    movieId = movieId.trim()
+    let { ticketNumbers, movieName, customerName, customerEmail, runDate, startTiming, endTiming, location, email } = req.body
+
+    const movieDetails = await getMovieById(movieName)
+    location = location.split("%20").join(" ").trim()
+    movieName = movieName.trim()
     let theatre
     try {
-        theatre = await Theatre.findOne({ location: venue }).exec()
+        theatre = await Theatre.findOne({ location: location }).exec()
     } catch (err) {
         console.log(err)
         return res
             .status(500)
             .json({error: "Internal server error!"})
     }
-    // console.log(theatre, typeof theatre, theatre.length)
-
-    // theatre = theatre[0]
-    let flag = false
-    seat_list = seat_list.split(",")
-
-    let seat_string = ""
-    for (let i=0; i<seat_list.length; i++) {
-      let second = +seat_list[i]%10
-      second++
-      let first = (Math.floor(seat_list[i]/10))%10
-      first = String.fromCharCode(65+first)
-      let final_seat = first.toString() + second.toString()
-      seat_string += final_seat + ", "
-    }
-
-    seat_string = seat_string.slice(0, seat_string.length-2)
-
-    // console.log(seat_string)
 
     for (let j=0; j<theatre.movieInfo.length; j++) {
-        if (theatre.movieInfo[j].movieName === movieId) {
+        if (theatre.movieInfo[j].movieName === movieName) {
             for (let k=0; k<theatre.movieInfo[j].timings.length; k++) {
-                if (theatre.movieInfo[j].timings[k].timing === movieTime) {
-                    for (let i=0; i<seat_list.length; i++) {
-                        let second = +seat_list[i]%10
-                        let first = Math.floor(seat_list[i]/10)
-                        theatre.movieInfo[j].timings[k].seating[first][second] = 0
+                if (theatre.movieInfo[j].timings[k].startTiming.getTime() === startTiming.getTime() && theatre.movieInfo[j].timings[k].runDate.getDate() === runDate.getDate() && theatre.movieInfo[j].timings[k].endTiming.getTime() === endTiming.getTime()) {
+                    let seatingArrangement = theatre.movieInfo[j].timings[k].seating
+                    for (let i=0; i<ticketNumbers.length; i++) {
+                        seatingArrangement[ticketNumbers[i][0]][ticketNumbers[i][1]]
                     }
                 }
             }
         }
-        if (flag === true) break
     }
 
     try {
-        await Theatre.findOneAndUpdate({ location: venue }, theatre)
+        await Theatre.findOneAndUpdate({ location: location }, theatre)
     } catch (err) {
         console.log(err)
         return res
             .status(500)
             .json({error: "Internal server error!"})
+    }
+
+    let newTicket = new Ticket({
+        customerName: customerName,
+        customerEmail: customerEmail,
+        email: email,
+        movieName: movieName,
+        ticketNumbers: ticketNumbers,
+        runDate: runDate,
+        startTiming: startTiming,
+        endTiming: endTiming
+    })
+
+    try {
+        await newTicket.save()
+    } catch (err) {
+        console.log(err)
+        return res
+            .status(500)
+            .json({ error: "Some internal error occurred!" })
     }
 
     const html = 
     `
         <div style="display: 'flex', flex-direction: 'column', justify-content: 'center', align-items: 'center'">
-            <h1>Your Booking Details for ` + movieDetails.title + ` at ` + venue + ` </h1>
-            <p style="color: 'lightblue'"> + ` + "Seats Booked : " + seat_string + ` </p>
+            <h1>Your Booking Details for ` + movieDetails.title + ` at ` + location + ` </h1>
+            <p style="color: 'lightblue'"> + ` + "Seats Booked : " + ticketNumbers + ` </p>
             <p style="color: 'lightblue'"> + ` + "Movie Time : " + movieTime.split("_").join(" ") + ` </p>
-            Polaroid Limited. Made by Arka, Prasad, Urjasvi, Biswadip and Kalyan
+            Polaroid Limited.
         </div>
     `
 
@@ -105,8 +105,8 @@ const addBooking = async (req, res) => {
         info_array = info_array.split("\"")
         let newBooking = new Booking({
             name: info_array[1],
-            location: venue,
-            movieName: movieId,
+            location: location,
+            movieName: movieName,
             timing: movieTime,
             seatXIndex: first,
             seatYIndex: second  

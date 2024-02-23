@@ -15,7 +15,28 @@ const defaultSeating = [
 ]
 
 const addShow = async (req, res) => {
-    const { adminName, location, movieName, timings } = req.body
+    let { adminName, location, movieName, startTime, endTime, runDate } = req.body
+
+    let runDate_DateObject = new Date(runDate)
+    const [startHours, startMinutes] = startTime.split(":")
+
+    let startTime_DateObject = new Date(
+        runDate_DateObject.getFullYear(),
+        runDate_DateObject.getMonth(),
+        runDate_DateObject.getDate(),
+        parseInt(startHours, 10),
+        parseInt(startMinutes, 10)
+    )
+
+    const [endHours, endMinutes] = endTime.split(":")
+
+    let endTime_DateObject = new Date(
+        runDate_DateObject.getFullYear(),
+        runDate_DateObject.getMonth(),
+        runDate_DateObject.getDate(),
+        parseInt(endHours, 10),
+        parseInt(endMinutes, 10)
+    )
 
     let movieLoc
     try {
@@ -50,12 +71,12 @@ const addShow = async (req, res) => {
 
         for (let i=0; i<newLocation.movieInfo.length; i++) {
             if (newLocation.movieInfo[i].movieName === movieName) {
-                for (let j=0; j<timings.length; j++) {
-                    newLocation.movieInfo[i].timings.push({
-                        timing: timings[j],
-                        seating: defaultSeating
-                    })
-                }
+                newLocation.movieInfo[i].timings.push({
+                    startTiming: startTime_DateObject,
+                    endTiming: endTime_DateObject,
+                    runDate: runDate_DateObject,
+                    seating: defaultSeating
+                })
                 break
             }
         }
@@ -86,12 +107,12 @@ const addShow = async (req, res) => {
 
         for (let i=0; i<movieLoc.movieInfo.length; i++) {
             if (movieLoc.movieInfo[i].movieName === movieName) {
-                for (let j=0; j<timings.length; j++) {
-                    movieLoc.movieInfo[i].timings.push({
-                        timing: timings[j],
-                        seating: defaultSeating
-                    })
-                }
+                movieLoc.movieInfo[i].timings.push({
+                    startTiming: startTime_DateObject,
+                    endTiming: endTime_DateObject,
+                    runDate: runDate_DateObject,
+                    seating: defaultSeating
+                })
                 break
             }
         }
