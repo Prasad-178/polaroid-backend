@@ -2,6 +2,7 @@ const list = require("../../models/list")
 
 const deleteFromList = async (req, res) => {
     const { username, listName, listItem } = req.body
+    console.log(req.body)
 
     let existingList
     try {
@@ -15,7 +16,7 @@ const deleteFromList = async (req, res) => {
 
     if (!existingList) {
         console.log("No such list exists!")
-        return res  
+        return res
             .status(404)
             .json({ error: "No such list exists!" })
     }
@@ -28,7 +29,7 @@ const deleteFromList = async (req, res) => {
         await existingList.save()
     } catch (err) {
         console.log(err)
-        return res  
+        return res
             .status(500)
             .json({ error: "Internal error occurred!" })
     }
