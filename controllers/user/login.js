@@ -48,7 +48,7 @@ const login = async (req, res) => {
 
     res.cookie('authToken', token, {
         path: '/',
-        expires: new Date(Date.now() + 1000*60*60*3),
+        expires: new Date(Date.now() + 1000*60*60*168),
         httpOnly: true,
         sameSite: 'lax'
     })

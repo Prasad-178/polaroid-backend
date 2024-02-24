@@ -24,6 +24,7 @@ const getMovieAvailability = require("../controllers/bookings/getMovieAvailabili
 const getSeats = require("../controllers/bookings/getSeats");
 const addBooking = require("../controllers/bookings/addBooking");
 const ongoingShows = require("../controllers/theatre/ongoingShows");
+const movieLocationAndTiming = require("../controllers/theatre/movieLocationAndTiming");
 
 router.get("/lists", getRecentLists);
 
@@ -74,5 +75,7 @@ router.post("/getmylists", getMyLists)
 router.get("/list/add/:listName/:listItem", appendToList)
 
 router.post("/film/:id", addReview)
+
+router.get('/loctim/:movieName', movieLocationAndTiming)
 
 module.exports = router;

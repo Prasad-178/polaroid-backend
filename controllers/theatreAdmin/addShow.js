@@ -13,9 +13,9 @@ const defaultSeating = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
-
+ 
 const addShow = async (req, res) => {
-    let { adminName, location, movieName, startTime, endTime, runDate } = req.body
+    let { adminName, location, movieName, startTime, endTime, runDate, price } = req.body
 
     let runDate_DateObject = new Date(runDate)
     const [startHours, startMinutes] = startTime.split(":")
@@ -75,7 +75,8 @@ const addShow = async (req, res) => {
                     startTiming: startTime_DateObject,
                     endTiming: endTime_DateObject,
                     runDate: runDate_DateObject,
-                    seating: defaultSeating
+                    seating: defaultSeating,
+                    price: price
                 })
                 break
             }
@@ -111,7 +112,8 @@ const addShow = async (req, res) => {
                     startTiming: startTime_DateObject,
                     endTiming: endTime_DateObject,
                     runDate: runDate_DateObject,
-                    seating: defaultSeating
+                    seating: defaultSeating,
+                    price: price
                 })
                 break
             }

@@ -1,16 +1,13 @@
 const Theatre = require("../../models/theatre")
 
 const movieLocationAndTiming = async (req, res) => {
-    const { movieName } = req.body
+    const { movieName } = req.params
+
+    const currentDate = new Date()
 
     let data
     try {
         data = await Theatre.aggregate([
-            {
-                $match: {
-                    'movieInfo.movieName': movieName
-                }
-            },
             {
                 $unwind: '$movieInfo'
             },
@@ -20,8 +17,17 @@ const movieLocationAndTiming = async (req, res) => {
                 }
             },
             {
+                $unwind: '$movieInfo.timings'
+            },
+            {
+                $match: {
+                    'movieInfo.timings.startTiming': { $gte: currentDate }
+                }
+            },
+            {
                 $project: {
-                    location: 1,
+                    _id: 0,
+                    location: '$location',
                     timings: '$movieInfo.timings'
                 }
             }
@@ -33,7 +39,9 @@ const movieLocationAndTiming = async (req, res) => {
             .json({error: "Some internal error occurred!"})
     }
 
-    
+    return res
+        .status(200)
+        .json(data)
 }
 
 module.exports = movieLocationAndTiming

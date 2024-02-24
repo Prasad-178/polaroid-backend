@@ -32,7 +32,8 @@ const theatreSchema = new schema({
             type: [[Number]],
             required: false,
             default: defaultSeating
-          }
+          },
+          price: Number
         }]
       }
     ],
