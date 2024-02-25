@@ -27,7 +27,7 @@ const showInfo = async (req, res) => {
 
         if (locData != null) data.push(locData)
     }
-
+    
     return res
         .status(200)
         .json(data)

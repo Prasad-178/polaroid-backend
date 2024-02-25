@@ -8,8 +8,6 @@ const addBooking = async (req, res) => {
     let { ticketNumbers, movieName, customerName, customerEmail, runDate, startTiming, endTiming, location, email } = req.body
 
     const movieDetails = await getMovieById(movieName)
-    location = location.split("%20").join(" ").trim()
-    movieName = movieName.trim()
     let theatre
     try {
         theatre = await Theatre.findOne({ location: location }).exec()
@@ -95,32 +93,9 @@ const addBooking = async (req, res) => {
                 .json({error: "Internal server error!"})
         }
         else {
-            // console.log("Success, email has been sent.")
+            console.log("Success, email has been sent.")
         }
     })
-
-    for (let i=0; i<person_counter; i++) {
-        let second = +seat_list[i]%10
-        let first = Math.floor(seat_list[i]/10)
-        info_array = info_array.split("\"")
-        let newBooking = new Booking({
-            name: info_array[1],
-            location: location,
-            movieName: movieName,
-            timing: movieTime,
-            seatXIndex: first,
-            seatYIndex: second  
-        })
-
-        try {
-            await newBooking.save()
-        } catch (err) {
-            console.log(err)
-            return res
-                .status(500)
-                .json({error: "Internal server error!"})
-        }
-    }
 
     return res
         .status(200)
