@@ -25,6 +25,7 @@ const getSeats = require("../controllers/bookings/getSeats");
 const addBooking = require("../controllers/bookings/addBooking");
 const ongoingShows = require("../controllers/theatre/ongoingShows");
 const movieLocationAndTiming = require("../controllers/theatre/movieLocationAndTiming");
+const cancelBooking = require("../controllers/bookings/cancelBooking");
 
 router.get("/lists", getRecentLists);
 
@@ -53,6 +54,8 @@ router.get('/lists/:username', getListsByUser)
 router.get('/list/:username/:listName', getList)
 
 router.post('/confirmticket', addBooking)
+
+router.post('/cancelticket', cancelBooking)
 
 router.get('/retrieveseats/:id/:timing/:venue', getSeats)
 

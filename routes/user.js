@@ -23,6 +23,7 @@ const deleteItemFromList = require("../controllers/list/deleteItemFromList");
 const userDetails = require("../controllers/user/userDetails");
 const uploadImage = require("../controllers/user/updateImage");
 const imageUploadDatabase = require("../controllers/user/imageUploadDatabase");
+const bookingHistory = require("../controllers/user/bookingHistory");
 const router = Router();
 
 const DIR = './public/uploads';
@@ -87,5 +88,7 @@ router.get("/logout", logout);
 router.post('/uploadImage', upload.single('profileImg'), uploadImage)
 
 router.post('/imgdatabase', imageUploadDatabase)
+
+router.post('/bookinghistory', bookingHistory)
 
 module.exports = router;

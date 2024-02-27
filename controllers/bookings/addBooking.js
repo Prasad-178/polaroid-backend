@@ -4,15 +4,46 @@ const nodemailer = require('nodemailer')
 const variables = require('../../config')
 const getMovieById = require('../../api/getMovieById')
 
+const ticketMapping = {
+    9: 'A',
+    8: 'B',
+    7: 'C',
+    6: 'D',
+    5: 'E',
+    4: 'F',
+    3: 'G',
+    2: 'H',
+    1: 'I',
+    0: 'J'
+}
+
+const mapTicketsToString = (ticketsArray) => {
+    let str = ""
+    for (let i=0; i<ticketsArray.length; i++) {
+        ticketsArray[i][1] = ticketsArray[i][1] + 1
+        if (i !== ticketsArray.length - 1) {
+            str += "" + ticketMapping[ticketsArray[i][0]] + ticketsArray[i][1] + ", "
+        }
+        else {
+            str += "" + ticketMapping[ticketsArray[i][0]] + ticketsArray[i][1]
+        }
+    }
+
+    return str
+}
+
 const addBooking = async (req, res) => {
-    let { ticketNumbers, movieName, customerName, customerEmail, runDate, startTiming, endTiming, location, email } = req.body
+    let { ticketNumbers, movieName, customerName, customerEmail, runDate, startTiming, endTiming, location, email, dateString } = req.body
+
+    startTiming = new Date(startTiming)
+    endTiming = new Date(endTiming)
+    runDate = new Date(runDate)
 
     const movieDetails = await getMovieById(movieName)
     let theatre
     try {
         theatre = await Theatre.findOne({ location: location }).exec()
     } catch (err) {
-        console.log(err)
         return res
             .status(500)
             .json({error: "Internal server error!"})
@@ -24,20 +55,11 @@ const addBooking = async (req, res) => {
                 if (theatre.movieInfo[j].timings[k].startTiming.getTime() === startTiming.getTime() && theatre.movieInfo[j].timings[k].runDate.getDate() === runDate.getDate() && theatre.movieInfo[j].timings[k].endTiming.getTime() === endTiming.getTime()) {
                     let seatingArrangement = theatre.movieInfo[j].timings[k].seating
                     for (let i=0; i<ticketNumbers.length; i++) {
-                        seatingArrangement[ticketNumbers[i][0]][ticketNumbers[i][1]]
+                        seatingArrangement[ticketNumbers[i][0]][ticketNumbers[i][1]] = 0
                     }
                 }
             }
         }
-    }
-
-    try {
-        await Theatre.findOneAndUpdate({ location: location }, theatre)
-    } catch (err) {
-        console.log(err)
-        return res
-            .status(500)
-            .json({error: "Internal server error!"})
     }
 
     let newTicket = new Ticket({
@@ -48,13 +70,21 @@ const addBooking = async (req, res) => {
         ticketNumbers: ticketNumbers,
         runDate: runDate,
         startTiming: startTiming,
-        endTiming: endTiming
+        endTiming: endTiming,
+        location: location
     })
+
+    try {
+        await Theatre.findOneAndUpdate({ location: location }, theatre)
+    } catch (err) {
+        return res
+            .status(500)
+            .json({error: "Internal server error!"})
+    }
 
     try {
         await newTicket.save()
     } catch (err) {
-        console.log(err)
         return res
             .status(500)
             .json({ error: "Some internal error occurred!" })
@@ -64,8 +94,8 @@ const addBooking = async (req, res) => {
     `
         <div style="display: 'flex', flex-direction: 'column', justify-content: 'center', align-items: 'center'">
             <h1>Your Booking Details for ` + movieDetails.title + ` at ` + location + ` </h1>
-            <p style="color: 'lightblue'"> + ` + "Seats Booked : " + ticketNumbers + ` </p>
-            <p style="color: 'lightblue'"> + ` + "Movie Time : " + movieTime.split("_").join(" ") + ` </p>
+            <p style="color: 'lightblue'"> + ` + "Seats Booked : " + mapTicketsToString(ticketNumbers) + ` </p>
+            <p style="color: 'lightblue'"> + ` + "Movie Time : " + dateString + ` </p>
             Polaroid Limited.
         </div>
     `
@@ -80,14 +110,13 @@ const addBooking = async (req, res) => {
     
     let mailOptions = {
         from: "polaroid.email.ltd@gmail.com",
-        to: email,
+        to: customerEmail,
         subject: "Thank you for Booking With Polaroid",
         html: html
     }
 
     transporter.sendMail(mailOptions, (err, success) => {
         if (err) {
-            console.log(err)
             return res
                 .status(500)
                 .json({error: "Internal server error!"})

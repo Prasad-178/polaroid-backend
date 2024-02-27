@@ -6,12 +6,16 @@ const ticketSchema = new schema({
     type: String,
     required: true
   },
+  location: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     required: true
   },
   ticketNumbers: {
-    type: [(Number, Number)],
+    type: [[Number, Number]],
     required: true
   },
   customerName: {
