@@ -54,7 +54,9 @@ const perLocationStats = async (req, res) => {
         }
     }
 
-    return res.status(200).json(locationsData);
+    return res
+        .status(200)
+        .json(locationsData);
 };
 
 module.exports = perLocationStats;

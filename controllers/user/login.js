@@ -43,7 +43,7 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign({_id: existingUser._id}, variables.jwt_secret, {
-        expiresIn: '3h'
+        expiresIn: '168h'
     })
 
     res.cookie('authToken', token, {

@@ -12,6 +12,7 @@ const verifyToken = require('./middleware/verifyToken')
 const cors = require('cors')
 const morgan = require('morgan')
 const rfs = require('rotating-file-stream')
+const stripe = require("stripe")("sk_test_51Ond5cSIbhuzzn4ue2eGLxnsw450KqgJhhjehXsISoMWRYqUj1ov8wLoO2YBaT0EgaTxSO0N8i83pbfZXabPH5Mh00sri63Har")
 
 let accessLogStream = rfs.createStream((Date.now() / 1000) + 'access.log', {
     interval: '10s',
@@ -44,6 +45,22 @@ app.use('/user', userRouter)
 app.use('/admin', adminRouter)
 app.use('/theatreadmin', theatreAdminRouter)
 
+app.post("/api/create-checkout-session", async (req, res) => {
+    const { movieName, name } = req.body;
+
+    const session = await stripe.checkout.sessions.create({
+        line_items: [
+            {
+                name: name,
+                movieName: movieName
+            },
+        ],
+        mode: "payment",
+        success_url: "http://localhost:3000/success",
+        cancel_url: "http://localhost:3000/booking",
+    });
+    res.json({ id: session.id })
+})
 
 app.get('*', (req, res) => {
     res.status(404).json({ message: "not found" });

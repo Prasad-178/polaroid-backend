@@ -8,8 +8,11 @@ const deleteMovie = require('../controllers/theatreAdmin/deleteMovie')
 const deleteShow = require('../controllers/theatreAdmin/deleteShow')
 const showInfo = require('../controllers/theatreAdmin/showInfo')
 const perLocationStats = require('../controllers/theatreAdmin/perLocationStats')
+const perMovieStats = require('../controllers/theatreAdmin/perMovieStats')
 
 router.post('/locationstats', perLocationStats)
+
+router.post('/moviestats', perMovieStats)
 
 router.post('/info', showInfo)
 
