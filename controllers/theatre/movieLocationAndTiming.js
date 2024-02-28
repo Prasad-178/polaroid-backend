@@ -19,11 +19,11 @@ const movieLocationAndTiming = async (req, res) => {
             {
                 $unwind: '$movieInfo.timings'
             },
-            {
-                $match: {
-                    'movieInfo.timings.startTiming': { $gte: currentDate }
-                }
-            },
+            // {
+            //     $match: {
+            //         'movieInfo.timings.startTiming': { $gte: currentDate }
+            //     }
+            // },
             {
                 $project: {
                     _id: 0,

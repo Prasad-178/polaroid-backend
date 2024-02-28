@@ -90,10 +90,12 @@ const addBooking = async (req, res) => {
             .json({ error: "Some internal error occurred!" })
     }
 
+    console.log(movieDetails)
+
     const html = 
     `
         <div style="display: 'flex', flex-direction: 'column', justify-content: 'center', align-items: 'center'">
-            <h1>Your Booking Details for ` + movieDetails.title + ` at ` + location + ` </h1>
+            <h1>Your Booking Details for ` + movieDetails?.title + ` at ` + location + ` </h1>
             <p style="color: 'lightblue'"> + ` + "Seats Booked : " + mapTicketsToString(ticketNumbers) + ` </p>
             <p style="color: 'lightblue'"> + ` + "Movie Time : " + dateString + ` </p>
             Polaroid Limited.

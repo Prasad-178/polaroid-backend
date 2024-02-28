@@ -10,11 +10,11 @@ const ongoingShows = async (req, res) => {
       {
         $unwind: "$movieInfo", // Deconstruct the movieInfo array for processing
       },
-      {
-        $match: {
-          "movieInfo.timings.startTiming": { $gte: currentDate },
-        },
-      },
+    //   {
+    //     $match: {
+    //       "movieInfo.timings.startTiming": { $gte: currentDate },
+    //     },
+    //   },
       {
         $group: {
           _id: "$movieInfo.movieName",
