@@ -90,8 +90,6 @@ const addBooking = async (req, res) => {
             .json({ error: "Some internal error occurred!" })
     }
 
-    console.log(movieDetails)
-
     const html = 
     `
         <div style="display: 'flex', flex-direction: 'column', justify-content: 'center', align-items: 'center'">

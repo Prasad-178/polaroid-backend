@@ -1,8 +1,14 @@
 const Theatre = require("../../models/theatre")
 
 const deleteShow = async (req, res) => {
-    const { location, movieName, timing } = req.body
+    let { location, movieName, startTiming, endTiming, runDate } = req.body
     console.log(req.body)
+
+    let startTimingObject = new Date(startTiming)
+    let endTimingObject = new Date(endTiming)
+    let runDateObject = new Date(runDate)
+
+    console.log(startTiming, endTiming, runDate)
 
     let loc
     try {
@@ -15,12 +21,18 @@ const deleteShow = async (req, res) => {
     }
 
     for (let i=0; i<loc?.movieInfo?.length; i++) {
-        console.log("inside movieInfo array")
         if (loc.movieInfo[i].movieName === movieName) {
-            console.log("found movie")
-            loc.movieInfo[i].timings = loc.movieInfo[i].timings.filter((x) => {
-                return x.timing !== timing
-            })
+            let newTimings = []
+            for (let j=0; j<loc.movieInfo[i].timings.length; j++) {
+                const x = loc.movieInfo[i].timings[j]
+                if (x.startTiming - startTimingObject === 0 && x.endTiming - endTimingObject === 0 && x.runDate - runDateObject === 0) {
+                    console.log("found movie to delete, not pushing!")
+                }
+                else {
+                    newTimings.push(loc.movieInfo[i].timings[j])
+                }
+            }
+            loc.movieInfo[i].timings = newTimings
         }
     }
 

@@ -9,10 +9,22 @@ const deleteShow = require('../controllers/theatreAdmin/deleteShow')
 const showInfo = require('../controllers/theatreAdmin/showInfo')
 const perLocationStats = require('../controllers/theatreAdmin/perLocationStats')
 const perMovieStats = require('../controllers/theatreAdmin/perMovieStats')
+const perLocationStatsLastWeek = require('../controllers/theatreAdmin/perLocationStatsLastWeek')
+const perLocationStatsLastMonth = require('../controllers/theatreAdmin/perLocationStatsLastMonth')
+const perMovieStatsLastWeek = require('../controllers/theatreAdmin/perMovieStatsLastWeek')
+const perMovieStatsLastMonth = require('../controllers/theatreAdmin/perMovieStatsLastMonth')
 
 router.post('/locationstats', perLocationStats)
 
+router.post('/locationstats/week', perLocationStatsLastWeek)
+
+router.post('/locationstats/month', perLocationStatsLastMonth)
+
 router.post('/moviestats', perMovieStats)
+
+router.post('/moviestats/week', perMovieStatsLastWeek)
+
+router.post('/moviestats/month', perMovieStatsLastMonth)
 
 router.post('/info', showInfo)
 
