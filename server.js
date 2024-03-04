@@ -46,18 +46,31 @@ app.use('/admin', adminRouter)
 app.use('/theatreadmin', theatreAdminRouter)
 
 app.post("/api/create-checkout-session", async (req, res) => {
-    const { movieName, name } = req.body;
+    const { price, quantity } = req.body;
+
+    priceDecimal = +price * 100
+
+    // Test Card
+    // card no: 4000 0035 6000 0008
+    // 12/34
+    // 159
 
     const session = await stripe.checkout.sessions.create({
         line_items: [
             {
-                name: name,
-                movieName: movieName
+                price_data: {
+                    currency: 'inr',
+                    product_data: {
+                        name: 'Movie Ticket',
+                    },
+                    unit_amount: priceDecimal,
+                },
+                quantity: quantity
             },
         ],
         mode: "payment",
-        success_url: "http://localhost:3000/success",
-        cancel_url: "http://localhost:3000/booking",
+        success_url: "http://localhost:3000/payment/success",
+        cancel_url: "http://localhost:3000/payment/failure",
     });
     res.json({ id: session.id })
 })
