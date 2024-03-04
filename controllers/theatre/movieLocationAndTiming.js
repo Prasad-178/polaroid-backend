@@ -19,11 +19,11 @@ const movieLocationAndTiming = async (req, res) => {
             {
                 $unwind: '$movieInfo.timings'
             },
-            // {
-            //     $match: {
-            //         'movieInfo.timings.startTiming': { $gte: currentDate }
-            //     }
-            // },
+            {
+                $match: {
+                    'movieInfo.timings.startTiming': { $gte: currentDate }
+                }
+            },
             {
                 $project: {
                     _id: 0,
@@ -36,7 +36,7 @@ const movieLocationAndTiming = async (req, res) => {
         console.log(err)
         return res
             .status(500)
-            .json({error: "Some internal error occurred!"})
+            .json({ error: "Some internal error occurred!" })
     }
 
     return res
