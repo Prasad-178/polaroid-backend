@@ -1,12 +1,10 @@
-FROM node:21-alpine
+FROM node:16
 
-WORKDIR /backend
+WORKDIR /app
 
-COPY "./package.json" .
+COPY . /app
 
 RUN npm install
-
-COPY . .
 
 EXPOSE 3500
 
