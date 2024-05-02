@@ -25,10 +25,32 @@ app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
-    methods: ['POST', 'GET', 'HEAD', 'PUT', 'DELETE'],
-    credentials: true
+   origin: ["http://localhost:3000"],
+   methods: ['POST', 'GET', 'HEAD', 'PUT', 'DELETE'],
+   credentials: true
 }))
+
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const options={
+	definition:{
+		openapi:'3.0.0',
+		info:{
+			title:'Node Js Project',
+			version: '1.0.0'
+		},
+		servers:[{
+
+			url: 'http://localhost:3500/'
+		}
+
+		]
+	},
+	apis:['./server.js', 'routes/user.js', 'routes/theatreAdmin.js']
+}
+
+const swaggerspec = swaggerJSDoc(options)
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerspec))
 
 app.set('view engine', 'ejs')
 
