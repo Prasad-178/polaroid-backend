@@ -25,7 +25,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cors({
-   origin: ["http://localhost:3000", "https://main--polaroid-5.netlify.app/", "https://6632a46854e7a10fdf3bc91c--polaroid-5.netlify.app/"],
+   origin: "*",
    methods: ['POST', 'GET', 'HEAD', 'PUT', 'DELETE'],
    credentials: true
 }))
@@ -41,7 +41,7 @@ const options={
 		},
 		servers:[{
 
-			url: 'http://localhost:3500/'
+			url: 'https://polaroid-backend.onrender.com'
 		}
 
 		]
@@ -91,8 +91,8 @@ app.post("/api/create-checkout-session", async (req, res) => {
             },
         ],
         mode: "payment",
-        success_url: "http://localhost:3000/payment/success",
-        cancel_url: "http://localhost:3000/payment/failure",
+        success_url: "https://main--polaroid-5.netlify.app/payment/success",
+        cancel_url: "https://main--polaroid-5.netlify.app/payment/failure",
     });
     res.json({ id: session.id })
 })
