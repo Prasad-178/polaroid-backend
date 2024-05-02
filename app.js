@@ -25,7 +25,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cors({
-   origin: ["http://localhost:3000"],
+   origin: ["http://localhost:3000", "https://main--polaroid-5.netlify.app/", "https://6632a46854e7a10fdf3bc91c--polaroid-5.netlify.app/"],
    methods: ['POST', 'GET', 'HEAD', 'PUT', 'DELETE'],
    credentials: true
 }))
