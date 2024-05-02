@@ -57,6 +57,42 @@ router.post('/forgotpassword', forgotPasswordOTP)
 
 router.post('/resetpassword', resetPassword)
 
+/**
+ * @swagger
+ * /user/deactivate:
+ *   get:
+ *     summary: Delete user account
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Account deletion successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: Account deleted successfully!
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error!
+ */
 router.get('/deactivate', deleteAccount)
 
 /**
@@ -213,7 +249,55 @@ router.post("/register", register);
  *
  */
 router.post("/createlist", createList);
-
+/**
+ * @swagger
+ * /user/addtolist:
+ *   post:
+ *     summary: Add the movie to list
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               listItem:
+ *                 type: string
+ *               listName:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Appending Movie To List Successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Movie added to list successfully!
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error!
+ *       404:
+ *         description: List Doesn't Exist
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: No such list exists!
+ *
+ */
 router.post("/addtolist", appendToList);
 
 router.post('/settings', settings)
@@ -302,10 +386,101 @@ router.post("/createlist", createList);
  */
 router.get("/logout", logout);
 
+/**
+ * @swagger
+ * /user/uploadImage:
+ *   post:
+ *     summary: Upload a image for User's profile picture
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: string
+ *             format: binary
+ *     responses:
+ *       200:
+ *         description: Image Upload Successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Multer image upload done successfully!
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error!
+ */
 router.post('/uploadImage', upload.single('profileImg'), uploadImage)
 
 router.post('/imgdatabase', imageUploadDatabase)
 
+/**
+ * @swagger
+ * /user/bookinghistory:
+ *   post:
+ *     summary: Returns booking history of a user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Ticket Information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 movieName:
+ *                   type: string
+ *                 location:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 ticketNumbers:
+ *                   type: array
+ *                   items:
+ *                     type: array
+ *                     items:
+ *                       type: integer
+ *                 customerName:
+ *                   type: string
+ *                 customerEmail:
+ *                   type: string
+ *                 runDate:
+ *                   type: string
+ *                 startTiming:
+ *                   type: string
+ *                   format: date-time
+ *                 endTiming:
+ *                   type: string
+ *                   format: date-time
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error!
+ */
 router.post('/bookinghistory', bookingHistory)
 
 module.exports = router;
