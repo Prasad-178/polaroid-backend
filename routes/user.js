@@ -59,10 +59,159 @@ router.post('/resetpassword', resetPassword)
 
 router.get('/deactivate', deleteAccount)
 
+/**
+ * @swagger
+ * /user/login:
+ *   post:
+ *     summary: Login for User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login Successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: Successfully logged in!
+ *       404:
+ *         description: User Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: No such user exists!
+ *       403:
+ *         description: Wrong Password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: The password you have entered is wrong!
+ *
+ */
 router.post("/login", login);
 
+/**
+ * @swagger
+ * /user/register:
+ *   post:
+ *     summary: Register for User
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Registeration Successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Registered successfully!
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error!
+ *       403:
+ *         description: User Already Exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: A user with this username/email already exists!
+ *
+ */
 router.post("/register", register);
 
+/**
+ * @swagger
+ * /user/createList:
+ *   post:
+ *     summary: Create a movies list
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               listName:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: List Creation Successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: List created successfully!
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error!
+ *       401:
+ *         description: List Already Exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: A list with this name already exists!
+ *
+ */
 router.post("/createlist", createList);
 
 router.post("/addtolist", appendToList);
@@ -79,10 +228,78 @@ router.post('/watcheddelete/:id', removeFromWatched)
 
 router.post("/list", getMyLists)
 
+/**
+ * @swagger
+ * /user/list/delete/{listName}/{username}:
+ *   delete:
+ *     summary: Delete a movie list
+ *     parameters:
+ *       - in: path
+ *         name: listName
+ *         required: true
+ *         description: Name of the list
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: username
+ *         required: true
+ *         description: Username of User
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: List Deletion Successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: List deleted successfully!
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error!
+ *       401:
+ *         description: List Doesn't Exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: No such list exists!
+ *
+ */
 router.delete("/list/delete/:listName/:username", deleteList);
 
 router.post("/createlist", createList);
 
+/**
+ * @swagger
+ * /user/logout:
+ *   get:
+ *     summary: Logout of User
+ *     responses:
+ *       200:
+ *         description: Logout Successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Logged out successfully!
+ */
 router.get("/logout", logout);
 
 router.post('/uploadImage', upload.single('profileImg'), uploadImage)

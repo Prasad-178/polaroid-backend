@@ -28,6 +28,55 @@ router.post('/moviestats/month', perMovieStatsLastMonth)
 
 router.post('/info', showInfo)
 
+/**
+ * @swagger
+ * /theatreAdmin/login:
+ *   post:
+ *     summary: Login for Theatre Admin
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login Successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: Successfully logged in!
+ *       404:
+ *         description: Theatre Admin Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: No such theatre admin exists!
+ *       403:
+ *         description: Wrong Password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: The password you have entered is wrong!
+ *
+ */
 router.post("/login", login)
 
 router.post("/addshow", addShow)
