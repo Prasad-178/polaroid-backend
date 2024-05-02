@@ -36,7 +36,7 @@ const options={
 	definition:{
 		openapi:'3.0.0',
 		info:{
-			title:'Node Js Project',
+			title:'Polaroid Project',
 			version: '1.0.0'
 		},
 		servers:[{
