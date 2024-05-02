@@ -31,7 +31,7 @@ const movieLocationAndTiming = async (req, res) => {
                     timings: '$movieInfo.timings'
                 }
             }
-        ])
+        ])  
     } catch (err) {
         console.log(err)
         return res

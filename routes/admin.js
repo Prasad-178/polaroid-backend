@@ -10,10 +10,13 @@ const createTheatreAdmin = require('../controllers/admin/createTheatreAdmin')
 const csrfProtection = csrf({ cookie: true })
 const parseForm = bodyParser.urlencoded({ extended: false })
 
-router.get("/getadmindetails", csrfProtection, showTheatreAdmins)
+router.get("/getadmindetails", showTheatreAdmins)
+// router.get("/getadmindetails", csrfProtection, showTheatreAdmins)
 
-router.post("/deletetheatreadmin", parseForm, csrfProtection, deleteTheatreAdmin)
+router.post("/deletetheatreadmin", deleteTheatreAdmin)
+// router.post("/deletetheatreadmin", parseForm, csrfProtection, deleteTheatreAdmin)
 
-router.post("/createtheatreadmin", parseForm, csrfProtection, createTheatreAdmin)
+router.post("/createtheatreadmin", createTheatreAdmin)
+// router.post("/createtheatreadmin", parseForm, csrfProtection, createTheatreAdmin)
 
 module.exports = router

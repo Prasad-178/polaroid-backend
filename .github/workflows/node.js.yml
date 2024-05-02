@@ -1,0 +1,42 @@
+name: Node.JS CI/CD
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Use Node.JS ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies and run tests
+      env:
+        PORT: ${{ secrets.PORT }}
+        MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+        MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+        SECRET: ${{ secrets.SECRET }}
+        API_KEY: ${{ secrets.API_KEY }}
+        APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+        STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+        STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      run: |
+        npm install pm2 -g
+        npm install
+        pm2 start server.js
+        sleep 20
+        npm test
+        pm2 stop server
