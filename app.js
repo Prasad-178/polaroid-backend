@@ -46,7 +46,7 @@ const options={
 
 		]
 	},
-	apis:['./server.js', 'routes/user.js', 'routes/theatreAdmin.js']
+	apis:['./server.js', 'routes/user.js', 'routes/theatreAdmin.js', 'routes/base.js']
 }
 
 const swaggerspec = swaggerJSDoc(options)
