@@ -28,3 +28,29 @@ describe('POST /user/login', () => {
         expect(response.status).toBe(404)
     })
 })
+
+describe('POST /user/settings', () => {
+    it('should return 200 OK if settings updated successfully', async () => {
+        const response = await request(baseURL)
+            .post('/user/settings')
+            .send({ email: "test@gmail.com", originalPassword: "Test@123", newPassword: "Test@123", username: "test" })
+
+        expect(response.status).toBe(200)
+    })
+
+    it('should return 403 Error if username already taken', async () => {
+        const response = await request(baseURL)
+            .post('/user/settings')
+            .send({ email: "test@gmail.com", originalPassword: "Test@123", newPassword: "Test@123", username: "Prasad" })
+
+        expect(response.status).toBe(403)
+    })
+
+    it('should return 401 Error if original password is incorrect', async () => {
+        const response = await request(baseURL)
+            .post('/user/settings')
+            .send({ email: "test@gmail.com", originalPassword: "TestWrong@123", newPassword: "Test@123", username: "test" })
+
+        expect(response.status).toBe(401)
+    })
+})
