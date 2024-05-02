@@ -25,14 +25,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install dependencies and run tests
       env:
-        NODE_ENV: ${{ secrets.NODE_ENV }}
-        MONGO_USER: ${{ secrets.MONGO_USER }}
-        MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-        MONGO_DEFAULT_DATABASE: ${{ secrets.MONGO_DEFAULT_DATABASE }}
-        cloud_name: ${{ secrets.cloud_name }}
-        api_key: ${{ secrets.api_key }}
-        api_secret: ${{ secrets.api_secret }}
-        json_secret: ${{ secrets.json_secret }}
+        PORT: ${{ secrets.PORT }}
+        MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+        MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+        SECRET: ${{ secrets.SECRET }}
+        API_KEY: ${{ secrets.API_KEY }}
+        APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+        STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+        STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
       run: |
         npm install pm2 -g
         npm install
